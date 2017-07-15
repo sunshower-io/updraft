@@ -1,6 +1,6 @@
 package common
 
-import "gitlab.com/sunshower.io/updraft/common/observer"
+import "github.com/sunshower-io/updraft/common/observer"
 
 type ErrorListener struct {
 	observer.EventListener

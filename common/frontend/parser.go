@@ -2,10 +2,10 @@ package frontend
 
 import (
     "time"
-    "gitlab.com/sunshower.io/updraft/common/ir"
-    "gitlab.com/sunshower.io/updraft/common/observer"
-    core "gitlab.com/sunshower.io/updraft/middle/core"
-    ccore "gitlab.com/sunshower.io/updraft/common/core"
+    "github.com/sunshower-io/updraft/common/ir"
+    "github.com/sunshower-io/updraft/common/observer"
+    core "github.com/sunshower-io/updraft/middle/core"
+    ccore "github.com/sunshower-io/updraft/common/core"
 )
 
 type ParserSummary struct {

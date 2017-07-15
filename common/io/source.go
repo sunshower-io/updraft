@@ -2,7 +2,7 @@ package io
 
 import (
 	"io"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/common/observer"
 )
 
 const (

@@ -1,6 +1,6 @@
 package comments
 
-import "gitlab.com/sunshower.io/updraft/common/observer"
+import "github.com/sunshower-io/updraft/common/observer"
 
 
 func CommentScanned(comment string) observer.Message {

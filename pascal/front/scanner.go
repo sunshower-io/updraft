@@ -3,12 +3,12 @@ package front
 import (
 	"io"
 	"unicode"
-	"gitlab.com/sunshower.io/updraft/middle/core"
-	"gitlab.com/sunshower.io/updraft/pascal/tokens"
-	"gitlab.com/sunshower.io/updraft/common/frontend"
-	"gitlab.com/sunshower.io/updraft/common/comments"
-	io2 "gitlab.com/sunshower.io/updraft/common/io"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/middle/core"
+	"github.com/sunshower-io/updraft/pascal/tokens"
+	"github.com/sunshower-io/updraft/common/frontend"
+	"github.com/sunshower-io/updraft/common/comments"
+	io2 "github.com/sunshower-io/updraft/common/io"
+	"github.com/sunshower-io/updraft/common/observer"
 )
 
 type PascalScanner struct {

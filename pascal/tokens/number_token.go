@@ -2,8 +2,8 @@ package tokens
 
 import (
 	"bytes"
-	"gitlab.com/sunshower.io/updraft/common/io"
-	"gitlab.com/sunshower.io/updraft/middle/core"
+	"github.com/sunshower-io/updraft/common/io"
+	"github.com/sunshower-io/updraft/middle/core"
 	"unicode"
 )
 

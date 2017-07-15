@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gitlab.com/sunshower.io/convection/core"
-	"gitlab.com/sunshower.io/updraft/ucc/cmd"
+	"github.com/sunshower-io/convection/core"
+	"github.com/sunshower-io/updraft/ucc/cmd"
 )
 
 

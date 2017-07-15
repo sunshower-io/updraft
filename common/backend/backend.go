@@ -1,8 +1,8 @@
 package backend
 
 import (
-	"gitlab.com/sunshower.io/updraft/common/ir"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/common/ir"
+	"github.com/sunshower-io/updraft/common/observer"
 )
 
 type Backend interface {

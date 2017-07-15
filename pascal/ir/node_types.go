@@ -1,6 +1,6 @@
 package ir
 
-import "gitlab.com/sunshower.io/updraft/common/ir"
+import "github.com/sunshower-io/updraft/common/ir"
 
 const (
     

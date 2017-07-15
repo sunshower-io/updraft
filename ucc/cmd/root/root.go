@@ -2,7 +2,7 @@ package root
 
 import (
     "github.com/spf13/cobra"
-    "gitlab.com/sunshower.io/updraft/common/io"
+    "github.com/sunshower-io/updraft/common/io"
     "os"
 )
 

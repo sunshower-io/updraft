@@ -2,10 +2,10 @@ package tokens
 
 import (
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/sunshower.io/updraft/front/parser"
+	"github.com/sunshower-io/updraft/front/parser"
 	"strings"
 	"testing"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/common/observer"
 )
 
 func TestPascalTokenExtractsIdentifierCorrectly(t *testing.T) {

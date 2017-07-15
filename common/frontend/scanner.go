@@ -1,9 +1,9 @@
 package frontend
 
 import (
-	"gitlab.com/sunshower.io/updraft/common/io"
-	"gitlab.com/sunshower.io/updraft/common/observer"
-	"gitlab.com/sunshower.io/updraft/middle/core"
+	"github.com/sunshower-io/updraft/common/io"
+	"github.com/sunshower-io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/middle/core"
 )
 
 type Extractor interface {

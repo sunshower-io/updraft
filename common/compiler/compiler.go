@@ -2,13 +2,13 @@ package compiler
 
 import (
     "sync"
-    "gitlab.com/sunshower.io/updraft/common"
-    "gitlab.com/sunshower.io/updraft/common/io"
-    "gitlab.com/sunshower.io/updraft/common/ir"
-    "gitlab.com/sunshower.io/updraft/common/observer"
-    "gitlab.com/sunshower.io/updraft/common/backend"
-    "gitlab.com/sunshower.io/updraft/common/frontend"
-    "gitlab.com/sunshower.io/updraft/common/core"
+    "github.com/sunshower-io/updraft/common"
+    "github.com/sunshower-io/updraft/common/io"
+    "github.com/sunshower-io/updraft/common/ir"
+    "github.com/sunshower-io/updraft/common/observer"
+    "github.com/sunshower-io/updraft/common/backend"
+    "github.com/sunshower-io/updraft/common/frontend"
+    "github.com/sunshower-io/updraft/common/core"
 )
 
 type Stage string

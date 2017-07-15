@@ -1,9 +1,9 @@
 package pascal
 
 import (
-    "gitlab.com/sunshower.io/updraft/ucc/cmd/root"
-    "gitlab.com/sunshower.io/updraft/pascal/pascal"
-    "gitlab.com/sunshower.io/updraft/common/compiler"
+    "github.com/sunshower-io/updraft/ucc/cmd/root"
+    "github.com/sunshower-io/updraft/pascal/pascal"
+    "github.com/sunshower-io/updraft/common/compiler"
 )
 
 type PascalConfiguration struct {

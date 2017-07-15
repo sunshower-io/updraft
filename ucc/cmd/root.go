@@ -6,12 +6,12 @@ import (
     
     "github.com/spf13/cobra"
     "github.com/spf13/viper"
-    "gitlab.com/sunshower.io/updraft/ucc/cmd/pascal"
-    "gitlab.com/sunshower.io/updraft/ucc/cmd/backend"
-    "gitlab.com/sunshower.io/updraft/ucc/cmd/root"
+    "github.com/sunshower-io/updraft/ucc/cmd/pascal"
+    "github.com/sunshower-io/updraft/ucc/cmd/backend"
+    "github.com/sunshower-io/updraft/ucc/cmd/root"
     homedir "github.com/mitchellh/go-homedir"
-    "gitlab.com/sunshower.io/convection/core"
-    "gitlab.com/sunshower.io/updraft/common/io"
+    "github.com/sunshower-io/convection/core"
+    "github.com/sunshower-io/updraft/common/io"
 )
 
 type RootCmdConfiguration struct {

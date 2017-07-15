@@ -1,8 +1,8 @@
 package codegen
 
 import (
-	"gitlab.com/sunshower.io/updraft/common/backend"
-	"gitlab.com/sunshower.io/updraft/common/ir"
+	"github.com/sunshower-io/updraft/common/backend"
+	"github.com/sunshower-io/updraft/common/ir"
 )
 
 type CodeGenerator struct {

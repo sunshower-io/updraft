@@ -1,6 +1,6 @@
 package core
 
-import "gitlab.com/sunshower.io/updraft/common/io"
+import "github.com/sunshower-io/updraft/common/io"
 
 type EofToken struct {
 	*BaseToken

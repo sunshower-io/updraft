@@ -3,11 +3,11 @@ package pascal
 import (
 	"testing"
 	"strings"
-	"gitlab.com/sunshower.io/updraft/common/compiler"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/common/compiler"
+	"github.com/sunshower-io/updraft/common/observer"
 	"github.com/magiconair/properties/assert"
-    "gitlab.com/sunshower.io/updraft/front/parser"
-    "gitlab.com/sunshower.io/updraft/pascal/common"
+    "github.com/sunshower-io/updraft/front/parser"
+    "github.com/sunshower-io/updraft/pascal/common"
 )
 
 const HELLO = `PROGRAM hello (output);

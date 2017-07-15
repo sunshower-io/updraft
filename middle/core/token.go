@@ -2,8 +2,8 @@ package core
 
 import (
 	"fmt"
-	"gitlab.com/sunshower.io/updraft/common/io"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/common/io"
+	"github.com/sunshower-io/updraft/common/observer"
 )
 
 type TokenType struct {

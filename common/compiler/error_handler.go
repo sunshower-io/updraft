@@ -1,6 +1,6 @@
 package compiler
 
-import "gitlab.com/sunshower.io/updraft/middle/core"
+import "github.com/sunshower-io/updraft/middle/core"
 
 type ErrorHandler interface {
 

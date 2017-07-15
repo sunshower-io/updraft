@@ -2,10 +2,10 @@ package cmd
 
 import (
     "github.com/spf13/cobra"
-    "gitlab.com/sunshower.io/updraft/common/compiler"
-    "gitlab.com/sunshower.io/updraft/ucc/cmd/root"
-    "gitlab.com/sunshower.io/updraft/front/parser"
-    "gitlab.com/sunshower.io/updraft/pascal/common"
+    "github.com/sunshower-io/updraft/common/compiler"
+    "github.com/sunshower-io/updraft/ucc/cmd/root"
+    "github.com/sunshower-io/updraft/front/parser"
+    "github.com/sunshower-io/updraft/pascal/common"
 )
 
 type TraceConfiguration struct {

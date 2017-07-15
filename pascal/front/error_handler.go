@@ -1,9 +1,9 @@
 package front
 
 import (
-    "gitlab.com/sunshower.io/updraft/middle/core"
-    "gitlab.com/sunshower.io/updraft/common/compiler"
-    "gitlab.com/sunshower.io/updraft/common/observer"
+    "github.com/sunshower-io/updraft/middle/core"
+    "github.com/sunshower-io/updraft/common/compiler"
+    "github.com/sunshower-io/updraft/common/observer"
     "fmt"
 )
 

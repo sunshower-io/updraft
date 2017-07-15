@@ -1,6 +1,6 @@
 package parser
 
-import "gitlab.com/sunshower.io/updraft/common/observer"
+import "github.com/sunshower-io/updraft/common/observer"
 
 type ParserMessageListener struct {
 	observer.EventListener

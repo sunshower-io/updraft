@@ -1,8 +1,8 @@
 package cmd
 
 import (
-    "gitlab.com/sunshower.io/updraft/ucc/cmd/root"
-    "gitlab.com/sunshower.io/updraft/common/compiler"
+    "github.com/sunshower-io/updraft/ucc/cmd/root"
+    "github.com/sunshower-io/updraft/common/compiler"
     "github.com/spf13/cobra"
 )
 

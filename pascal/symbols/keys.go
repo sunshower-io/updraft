@@ -1,6 +1,6 @@
 package symbols
 
-import "gitlab.com/sunshower.io/updraft/common/ir"
+import "github.com/sunshower-io/updraft/common/ir"
 
 var (
 	CONSTANT_VALUE       = ir.KeyedBy("CONSTANT_VALUE")

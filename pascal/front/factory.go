@@ -1,11 +1,11 @@
 package front
 
 import (
-	"gitlab.com/sunshower.io/updraft/common/ir"
-	"gitlab.com/sunshower.io/updraft/common/frontend"
-	"gitlab.com/sunshower.io/updraft/front/parser"
-	"gitlab.com/sunshower.io/updraft/common/observer"
-	"gitlab.com/sunshower.io/updraft/common/compiler"
+	"github.com/sunshower-io/updraft/common/ir"
+	"github.com/sunshower-io/updraft/common/frontend"
+	"github.com/sunshower-io/updraft/front/parser"
+	"github.com/sunshower-io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/common/compiler"
 )
 
 func NewPascalParser(

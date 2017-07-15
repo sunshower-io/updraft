@@ -3,7 +3,7 @@ package compiler
 import (
     "testing"
     "github.com/stretchr/testify/assert"
-    "gitlab.com/sunshower.io/updraft/common/observer"
+    "github.com/sunshower-io/updraft/common/observer"
 )
 
 

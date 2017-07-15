@@ -7,9 +7,9 @@ import (
 	"testing"
 	"unicode/utf8"
 	"github.com/stretchr/testify/assert"
-	sio "gitlab.com/sunshower.io/updraft/common/io"
-	"gitlab.com/sunshower.io/updraft/middle/core"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	sio "github.com/sunshower-io/updraft/common/io"
+	"github.com/sunshower-io/updraft/middle/core"
+	"github.com/sunshower-io/updraft/common/observer"
 )
 
 func TestEOFToken(t *testing.T) {

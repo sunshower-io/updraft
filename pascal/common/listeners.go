@@ -3,10 +3,10 @@ package common
 import (
 	"fmt"
 	"github.com/docker/docker/api/types/time"
-	"gitlab.com/sunshower.io/updraft/back/interpreter"
-	"gitlab.com/sunshower.io/updraft/common/io"
-	"gitlab.com/sunshower.io/updraft/common/observer"
-	front "gitlab.com/sunshower.io/updraft/common/frontend"
+	"github.com/sunshower-io/updraft/back/interpreter"
+	"github.com/sunshower-io/updraft/common/io"
+	"github.com/sunshower-io/updraft/common/observer"
+	front "github.com/sunshower-io/updraft/common/frontend"
 )
 
 const PARSER_SUMMARY_FORMAT = "\n%20d source lines." +

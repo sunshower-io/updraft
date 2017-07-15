@@ -4,8 +4,8 @@ import (
 	"bufio"
     gio "io"
     "unicode/utf8"
-	"gitlab.com/sunshower.io/updraft/common/io"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/common/io"
+	"github.com/sunshower-io/updraft/common/observer"
 )
 
 type BaseSource struct {

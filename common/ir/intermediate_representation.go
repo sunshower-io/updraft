@@ -2,7 +2,7 @@ package ir
 
 import (
     "io"
-    "gitlab.com/sunshower.io/updraft/common/utils"
+    "github.com/sunshower-io/updraft/common/utils"
 )
 
 /**

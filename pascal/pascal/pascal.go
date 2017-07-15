@@ -2,10 +2,10 @@ package pascal
 
 import (
 	gio "io"
-	"gitlab.com/sunshower.io/updraft/pascal/front"
-	"gitlab.com/sunshower.io/updraft/common/compiler"
-	fio "gitlab.com/sunshower.io/updraft/front/parser"
-	"gitlab.com/sunshower.io/updraft/common/core"
+	"github.com/sunshower-io/updraft/pascal/front"
+	"github.com/sunshower-io/updraft/common/compiler"
+	fio "github.com/sunshower-io/updraft/front/parser"
+	"github.com/sunshower-io/updraft/common/core"
 )
 
 

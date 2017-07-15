@@ -1,10 +1,10 @@
 package factory
 
 import (
-	"gitlab.com/sunshower.io/updraft/back/codegen"
-	"gitlab.com/sunshower.io/updraft/back/interpreter"
-	"gitlab.com/sunshower.io/updraft/common/backend"
-	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/back/codegen"
+	"github.com/sunshower-io/updraft/back/interpreter"
+	"github.com/sunshower-io/updraft/common/backend"
+	"github.com/sunshower-io/updraft/common/observer"
 )
 
 type BackendType string

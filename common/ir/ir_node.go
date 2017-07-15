@@ -1,6 +1,6 @@
 package ir
 
-import "gitlab.com/sunshower.io/updraft/common/utils"
+import "github.com/sunshower-io/updraft/common/utils"
 
 type BaseIRNode struct {
     IntermediateNode

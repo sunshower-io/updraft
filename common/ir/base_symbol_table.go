@@ -3,7 +3,7 @@ package ir
 import (
 	"errors"
 	"fmt"
-	"gitlab.com/sunshower.io/updraft/common/collections"
+	"github.com/sunshower-io/updraft/common/collections"
 	"strings"
 )
 

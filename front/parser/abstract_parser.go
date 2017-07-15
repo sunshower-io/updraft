@@ -1,10 +1,10 @@
 package parser
 
 import (
-	"gitlab.com/sunshower.io/updraft/common/ir"
-	"gitlab.com/sunshower.io/updraft/common/observer"
-	core "gitlab.com/sunshower.io/updraft/middle/core"
-	"gitlab.com/sunshower.io/updraft/common/frontend"
+	"github.com/sunshower-io/updraft/common/ir"
+	"github.com/sunshower-io/updraft/common/observer"
+	core "github.com/sunshower-io/updraft/middle/core"
+	"github.com/sunshower-io/updraft/common/frontend"
 )
 
 type AbstractParser struct {

@@ -3,13 +3,13 @@ package front
 import (
 	"time"
 	"strings"
-	"gitlab.com/sunshower.io/updraft/common/ir"
-	"gitlab.com/sunshower.io/updraft/common/observer"
-	"gitlab.com/sunshower.io/updraft/middle/core"
-	"gitlab.com/sunshower.io/updraft/pascal/tokens"
-	"gitlab.com/sunshower.io/updraft/common/frontend"
-	"gitlab.com/sunshower.io/updraft/common/compiler"
-	ccore "gitlab.com/sunshower.io/updraft/common/core"
+	"github.com/sunshower-io/updraft/common/ir"
+	"github.com/sunshower-io/updraft/common/observer"
+	"github.com/sunshower-io/updraft/middle/core"
+	"github.com/sunshower-io/updraft/pascal/tokens"
+	"github.com/sunshower-io/updraft/common/frontend"
+	"github.com/sunshower-io/updraft/common/compiler"
+	ccore "github.com/sunshower-io/updraft/common/core"
 )
 
 type RecursiveDescentPascalParser struct {
