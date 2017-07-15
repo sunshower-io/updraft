@@ -1,0 +1,331 @@
+package pascal
+
+import (
+	"testing"
+	"strings"
+	"gitlab.com/sunshower.io/updraft/common/compiler"
+	"gitlab.com/sunshower.io/updraft/common/observer"
+	"github.com/magiconair/properties/assert"
+    "gitlab.com/sunshower.io/updraft/front/parser"
+    "gitlab.com/sunshower.io/updraft/pascal/common"
+)
+
+const HELLO = `PROGRAM hello (output);
+
+{Write 'hello, world' ten times.}
+
+VAR
+
+    i : integer;
+BEGIN {hello}
+    i := 1000e
+    FOR i := 1 TO 10 DO BEGIN
+    IF (+-:=<>=<==.......)
+        writeln('hello, world');
+    END;
+END {hello}.
+
+
+`
+
+const COMPLEX = `
+
+
+PROGRAM newton (input, output);
+
+CONST
+    EPSILON = 12001;
+    
+    
+VAR
+    number              : integer;
+    root, sqroot        : real;
+    
+BEGIN
+    REPEAT
+        writeln;
+        write('enter new number (0 to quit): ');
+        read(number)
+        
+        IF number = 0 THEN BEGIN
+            writeln(number:12, 0.0:12:6);
+        END
+        ELSE IF number < 0 THEN BEGIN
+            writeln('*** ERROR: number < 0');
+        END
+        ELSE BEGIN
+            sqroot := sqrt(number);
+            writeln(number:12, sqroot:12:6)
+            writeln;
+            root := 1;
+            
+            REPEAT
+                root := (number / root + root) / 2;
+                writeln(
+                    root:24:6,
+                    100 * abs(root - sqroot) / sqroot:12:2,
+                    '%'
+                )
+            UNTIL abs(number/sqr(root) -1) < EPSILON;
+        END
+    UNTIL number = 0
+END.
+
+
+
+
+
+`
+
+func TestSimpleCommentsGenerateCorrectLexingEvents(t *testing.T) {
+
+	prog := `
+	{this is a comment}
+	{this is another comment}
+	
+	{frap}
+	`
+	
+	cmp := NewPascal(strings.NewReader(prog))
+	
+	newlineListener := &countingListener{
+        eventType: observer.SOURCE_LINE,
+    }
+	
+	cmp.AddListener(
+		compiler.LEXING,
+		newlineListener,
+	)
+	
+	cmp.Compile()
+	
+	assert.Equal(t, newlineListener.count, 6)
+}
+
+func TestTokenLineNumberIsCorrectForEof(t *testing.T) {
+    
+    prog := `
+    BEGIN
+    
+    END.
+    `
+    
+    cmp := NewPascal(strings.NewReader(prog))
+    cmp.AddListener(
+        compiler.PARSING,
+        &common.ParserMessageListener{},
+    )
+    
+    cmp.Compile()
+}
+
+func TestTokenErrorsGenerateErrorEvents(t *testing.T) {
+    
+    prog := `
+	{this is a comment}
+	{this is another comment}
+	
+	{frap}
+	
+	
+	{
+	        coobeanfrappers
+	        
+	        I'm not really sure how this works
+	
+	
+	`
+    
+    cmp := NewPascal(strings.NewReader(prog))
+    
+    newlineListener := &countingListener{
+        eventType:observer.SYNTAX_ERROR,
+    }
+    
+    cmp.AddListener(
+        compiler.PARSING,
+        newlineListener,
+    )
+    
+    cmp.Compile()
+    
+    println(newlineListener.messages[0].Format())
+    
+    assert.Equal(t, newlineListener.count, 1)
+}
+
+func TestCommentsGenerateCommentEvents(t *testing.T) {
+	
+	prog := `
+	{this is a comment}
+	{this is another comment}
+	
+	{frap}
+	
+	
+	{
+	        coobeanfrappers
+	        
+	        I'm not really sure how this works {are you?}
+	
+	
+	}
+	`
+	
+	cmp := NewPascal(strings.NewReader(prog))
+	
+	newlineListener := &countingListener{
+        eventType:observer.COMMENT,
+    }
+	
+	cmp.AddListener(
+		compiler.LEXING,
+		newlineListener,
+	)
+	
+	cmp.Compile()
+	
+	assert.Equal(t, newlineListener.count, 4)
+}
+
+
+func TestReadingCommentConsumesTrailingBrace(t *testing.T) {
+    
+    prog := `
+    {hello}
+    `
+    cmp := NewPascal(strings.NewReader(prog))
+    
+    newlineListener := &countingListener{
+        eventType:observer.PARSER_SUMMARY,
+    }
+    
+    cmp.AddListener(
+        compiler.PARSING,
+        newlineListener,
+    )
+    cmp.AddListener(
+        compiler.PARSING,
+        &parser.ParserMessageListener{},
+    )
+    cmp.Compile()
+}
+
+
+func TestReadingInvalidTokensProducesErrors(t *testing.T) {
+    
+    prog := `
+    {hello}
+   $$$
+    `
+    cmp := NewPascal(strings.NewReader(prog))
+    
+    newlineListener := &countingListener{
+        eventType:observer.PARSER_SUMMARY,
+    }
+    
+    cmp.AddListener(
+        compiler.PARSING,
+        newlineListener,
+    )
+    cmp.AddListener(
+        compiler.PARSING,
+        &parser.ParserMessageListener{},
+    )
+    cmp.Compile()
+}
+
+func TestReadingComplexProgramWorks(t *testing.T) {
+    
+    cmp := NewPascal(strings.NewReader(COMPLEX))
+    
+    newlineListener := &countingListener{
+        eventType:observer.PARSER_SUMMARY,
+    }
+    
+    cmp.AddListener(
+        compiler.PARSING,
+        newlineListener,
+    )
+    cmp.AddListener(
+        compiler.PARSING,
+        &parser.ParserMessageListener{},
+    )
+    
+    cmp.Compile()
+  
+    assert.Equal(t, newlineListener.count, 1)
+    
+    println(newlineListener.messages[0].Format())
+}
+
+
+
+//func TestComplexScriptReadsCorrectValues(t *testing.T) {
+//
+//	opts := PascalOptions{}
+//
+//	p := NewPascal(parser.NewSource(
+//		strings.NewReader(COMPLEX),
+//	), opts)
+//
+//	l := new(common.CommentMessageListener)
+//	p.AddScannerListener(l)
+//
+//	p.Run()
+//
+//}
+//
+//func TestSimpleScriptReadsCorrectNumberOfComments(t *testing.T) {
+//	opts := PascalOptions{}
+//
+//	p := NewPascal(parser.NewSource(
+//		strings.NewReader(HELLO),
+//	), opts)
+//
+//	l := new(common.CommentMessageListener)
+//	p.AddScannerListener(l)
+//
+//	p.Run()
+//
+//	assert.Equal(t, len(l.Comments), 3)
+//
+//	assert.Equal(t, l.Comments[0], "Write 'hello, world' ten times.")
+//
+//}
+//
+//func TestDoubleQuotes(t *testing.T) {
+//	opts := PascalOptions{}
+//
+//	p := NewPascal(parser.NewSource(
+//		strings.NewReader(`hello ''world''''`),
+//	), opts)
+//	p.Run()
+//}
+
+
+
+
+
+
+
+type countingListener struct {
+	count 		int
+	eventType  	observer.EventType
+    messages    []observer.Message
+}
+
+
+
+func(s *countingListener ) Id() string {
+	return "newlines"
+}
+
+func(s *countingListener) ListensFor(m observer.Message) bool {
+	return m.TopicId() == s.eventType
+}
+
+func (s *countingListener) OnMessage(m observer.Message) {
+    s.messages = append(s.messages, m)
+	s.count++
+}
