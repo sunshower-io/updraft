@@ -23,7 +23,7 @@ type Parser interface {
     observer.EventProducer
     
     GetScanner()                        Scanner
-    
+   
     
     GetCode()                           core.Code
     
@@ -40,4 +40,6 @@ type Parser interface {
     Initialize()                        error
     
     Parse(ccore.CompilationResult)      error
+    
+    GetExecutionModelFactory()          ir.ExecutionModelFactory
 }

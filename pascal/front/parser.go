@@ -25,6 +25,10 @@ func (p *RecursiveDescentPascalParser) GetSymbolTables() ir.SymbolTableStack {
 	return p.symbolTables
 }
 
+func (p *RecursiveDescentPascalParser) GetExecutionModelFactory() ir.ExecutionModelFactory {
+    return p.executionModelFactory
+}
+
 func (p *RecursiveDescentPascalParser) Parse(
 		ccore.CompilationResult,
 ) error {

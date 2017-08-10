@@ -17,6 +17,7 @@ func NewStatementParser(
         ElementParser: &syntax.BaseElementParser{
             Parser: parser,
         },
+        ExecutionModelFactory: parser.GetExecutionModelFactory(),
     }
 }
 

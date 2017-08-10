@@ -3,23 +3,21 @@ package elements
 import (
     "github.com/sunshower-io/updraft/common/ir"
     "github.com/sunshower-io/updraft/middle/core"
-    "github.com/sunshower-io/updraft/common/syntax"
 )
 
 
 func NewAssignmentParser (
         parent *StatementParser,
 ) *AssignmentStatementParser {
-    return &AssignmentStatementParser{}
+    return &AssignmentStatementParser{parent}
 }
 
 type AssignmentStatementParser struct {
-    syntax.ElementParser
+    *StatementParser
 }
 
 func (p *AssignmentStatementParser) Parse(token core.Token) (ir.IntermediateNode, error) {
-    println("Assignment")
-    return nil, nil
+    return p.ExecutionModelFactory.NewNode(ir.NO_OP), nil
 }
 
 
