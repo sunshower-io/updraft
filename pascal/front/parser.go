@@ -54,7 +54,7 @@ func (p *RecursiveDescentPascalParser) Parse(
 			)
 		case tokens.BEGIN:
             statement := elements.NewStatementParser(p);
-            root = statement.Parse(token)
+            root, _ = statement.Parse(token)
 			//tname := strings.ToLower(token.GetText())
             //
 			//symbol, er := p.symbolTables.Resolve(tname)

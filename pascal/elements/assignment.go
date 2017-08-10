@@ -1,10 +1,10 @@
 package elements
 
-import "github.com/sunshower-io/updraft/common/syntax"
-
-type AssignmentStatementParser struct {
-    syntax.ElementParser
-}
+import (
+    "github.com/sunshower-io/updraft/common/ir"
+    "github.com/sunshower-io/updraft/middle/core"
+    "github.com/sunshower-io/updraft/common/syntax"
+)
 
 
 func NewAssignmentParser (
@@ -12,3 +12,13 @@ func NewAssignmentParser (
 ) *AssignmentStatementParser {
     return &AssignmentStatementParser{}
 }
+
+type AssignmentStatementParser struct {
+    syntax.ElementParser
+}
+
+func (p *AssignmentStatementParser) Parse(token core.Token) (ir.IntermediateNode, error) {
+    return nil, nil
+}
+
+
