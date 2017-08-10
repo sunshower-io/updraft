@@ -2,7 +2,6 @@ package front
 
 import (
 	"time"
-	"strings"
 	"github.com/sunshower-io/updraft/common/ir"
 	"github.com/sunshower-io/updraft/common/observer"
 	"github.com/sunshower-io/updraft/middle/core"
@@ -33,7 +32,8 @@ func (p *RecursiveDescentPascalParser) Parse(
 
 	var (
         token core.Token
-        root  ir.ExecutionModel
+        root  ir.IntermediateNode
+        executionModel ir.ExecutionModel
     )
 
 	for {
@@ -72,6 +72,8 @@ func (p *RecursiveDescentPascalParser) Parse(
 	
 DONE:
 	endTime := time.Since(startTime)
+    
+    executionModel.SetRoot(root)
 
 
 	p.SendMessage(observer.CreateEvent(

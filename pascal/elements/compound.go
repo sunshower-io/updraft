@@ -18,8 +18,6 @@ func (c *CompoundParser) Parse(
         t core.Token,
 ) ir.IntermediateNode {
     
-    
-    
-    
+    return nil
     
 }

@@ -40,25 +40,16 @@ func (s *StatementParser) Parse(
     var executionModel ir.IntermediateNode 
     
     switch token.GetType() {
-
     case tokens.BEGIN : 
-        
-        
         compoundStatementParser := NewCompoundParser(s)
         executionModel = compoundStatementParser.Parse(token)
     case tokens.IDENTIFIER: 
-        
-        
         assignmentStatmentParser := NewAssignmentParser(s)
         executionModel = assignmentStatmentParser.Parse(token)
     default: 
-        
-        
         executionModel = s.ExecutionModelFactory.NewNode(ir.NO_OP)
     }
-    
     setLineNumber(token, executionModel)
-    
     return executionModel
 }
 
