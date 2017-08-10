@@ -2,6 +2,13 @@ package ir
 
 import "github.com/sunshower-io/updraft/common/utils"
 
+
+const (
+    NO_OP IntermediateNodeType = -1 
+)
+
+
+
 type BaseIRNode struct {
     IntermediateNode
     

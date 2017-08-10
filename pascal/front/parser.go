@@ -10,6 +10,7 @@ import (
 	"github.com/sunshower-io/updraft/common/frontend"
 	"github.com/sunshower-io/updraft/common/compiler"
 	ccore "github.com/sunshower-io/updraft/common/core"
+    "github.com/sunshower-io/updraft/pascal/elements"
 )
 
 type RecursiveDescentPascalParser struct {
@@ -30,7 +31,10 @@ func (p *RecursiveDescentPascalParser) Parse(
 
 	startTime := time.Now()
 
-	var token core.Token
+	var (
+        token core.Token
+        root  ir.ExecutionModel
+    )
 
 	for {
 		token = p.GetNextToken()
@@ -48,17 +52,19 @@ func (p *RecursiveDescentPascalParser) Parse(
 				token,
 				token.GetValue(),
 			)
-		case tokens.IDENTIFIER:
-			tname := strings.ToLower(token.GetText())
-
-			symbol, er := p.symbolTables.Resolve(tname)
-			if er != nil {
-				symbol, _ = p.symbolTables.EnterLocal(tname)
-			}
-
-			symbol.AddLine(&ir.Line{
-				Number: token.GetLineNumber(),
-			})
+		case tokens.BEGIN:
+            statement := elements.NewStatementParser(p);
+            root = statement.Parse(token)
+			//tname := strings.ToLower(token.GetText())
+            //
+			//symbol, er := p.symbolTables.Resolve(tname)
+			//if er != nil {
+			//	symbol, _ = p.symbolTables.EnterLocal(tname)
+			//}
+            //
+			//symbol.AddLine(&ir.Line{
+			//	Number: token.GetLineNumber(),
+			//})
 		default:
 			p.SendMessage(core.NewTokenMessage(token))
 		}
