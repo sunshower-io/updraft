@@ -18,6 +18,7 @@ type AssignmentStatementParser struct {
 }
 
 func (p *AssignmentStatementParser) Parse(token core.Token) (ir.IntermediateNode, error) {
+    println("Assignment")
     return nil, nil
 }
 

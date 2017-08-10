@@ -28,6 +28,7 @@ type BaseEvent struct {
 	Topic EventType
 
 	Body interface{}
+    
 }
 
 func (b *BaseEvent) TopicId() EventType {

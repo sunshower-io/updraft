@@ -84,6 +84,17 @@ func (s *StatementParser) ParseList(
                 tokens.MISSING_SEMICOLON,
             )
         }
+        
+        if tokenType == terminator {
+            token, err = s.NextToken()
+        } else {
+            s.ErrorHandler.FlagError(
+                compiler.PARSING, 
+                token,
+                s,
+                errorCode, 
+            )
+        }
     }
     
 DONE: 

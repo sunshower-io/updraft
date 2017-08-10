@@ -17,5 +17,6 @@ type CompoundParser struct {
 func (c *CompoundParser) Parse(
         t core.Token,
 ) (ir.IntermediateNode, error) {
+    println("Compound")
     return nil, nil
 }

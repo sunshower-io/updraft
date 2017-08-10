@@ -15,6 +15,7 @@ func NewPascalParser(
 		
 ) frontend.Parser {
 	p := &RecursiveDescentPascalParser{
+        executionModelFactory: ir.NewExecutionModelFactory(),
 		errorHandler: &PascalErrorHandler{
 			Compiler: compiler,
 		},

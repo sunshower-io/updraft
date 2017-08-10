@@ -15,9 +15,10 @@ import (
 type RecursiveDescentPascalParser struct {
 	frontend.Parser
 
-	errorHandler 		compiler.ErrorHandler
-	symbolTables  		ir.SymbolTableStack
-	symbolFactory 		ir.SymbolTableFactory
+	errorHandler 		    compiler.ErrorHandler
+	symbolTables  		    ir.SymbolTableStack
+	symbolFactory 		    ir.SymbolTableFactory
+    executionModelFactory   ir.ExecutionModelFactory
 }
 
 func (p *RecursiveDescentPascalParser) GetSymbolTables() ir.SymbolTableStack {
@@ -35,6 +36,7 @@ func (p *RecursiveDescentPascalParser) Parse(
         root  ir.IntermediateNode
         executionModel ir.ExecutionModel
     )
+    executionModel = p.executionModelFactory.NewExecutionModel()
 
 	for {
 		token = p.GetNextToken()
@@ -55,6 +57,7 @@ func (p *RecursiveDescentPascalParser) Parse(
 		case tokens.BEGIN:
             statement := elements.NewStatementParser(p);
             root, _ = statement.Parse(token)
+            executionModel.SetRoot(root)
 			//tname := strings.ToLower(token.GetText())
             //
 			//symbol, er := p.symbolTables.Resolve(tname)

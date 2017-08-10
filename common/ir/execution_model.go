@@ -1,13 +1,33 @@
 package ir
 
 
+func NewExecutionModelFactory() ExecutionModelFactory {
+    return &baseExecutionModelFactory{}
+}
 
 /**
     Provider of different intermediate node types
  */
 
 type ExecutionModelFactory interface {
+    NewExecutionModel() ExecutionModel
+    
     NewNode(IntermediateNodeType) IntermediateNode
+    
+}
+
+
+
+type baseExecutionModelFactory struct {
+    ExecutionModelFactory
+}
+
+func (e *baseExecutionModelFactory) NewExecutionModel() ExecutionModel {
+    return &BaseExecutionModel{}
+}
+
+func (e *baseExecutionModelFactory) NewNode(t IntermediateNodeType) IntermediateNode {
+    return &BaseIRNode{}
 }
 
 
