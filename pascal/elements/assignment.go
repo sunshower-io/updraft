@@ -5,7 +5,7 @@ import (
     "github.com/sunshower-io/updraft/middle/core"
     "strings"
     "github.com/sunshower-io/updraft/pascal/tokens"
-    "github.com/sunshower-io/updraft/common/compiler"
+    "github.com/sunshower-io/updraft/common"
 )
 
 
@@ -49,14 +49,14 @@ func (p *AssignmentStatementParser) Parse(token core.Token) (ir.IntermediateNode
         token, er = p.NextToken()
     } else {
         p.ErrorHandler.FlagError(
-            compiler.PARSING, 
+            common.PARSING, 
             token, 
             p, 
             tokens.MISSING_COLON_EQUALS,
         )
     }
     
-    expressionParser := NewExpressionParser(p)
+    expressionParser := NewExpressionParser(p.StatementParser)
     
     expressionNode, er := expressionParser.Parse(token)
     assignment.AddChild(expressionNode)

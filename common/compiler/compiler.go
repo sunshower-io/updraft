@@ -11,16 +11,6 @@ import (
     "github.com/sunshower-io/updraft/common/core"
 )
 
-type Stage string
-
-
-const (
-    LEXING      Stage = "stage:lexing"
-    PARSING     Stage = "stage:parsing"
-    OPTIMIZING  Stage = "stage:optimizing"
-    EXECUTING   Stage = "stage:executing"
-
-)
 
 type ExecutionResult interface {
 
@@ -67,7 +57,7 @@ type Compiler interface {
     /**
     Add a listener for a given stage in the compilation pipeline
      */
-    AddListener(Stage, observer.EventListener)
+    AddListener(common.Stage, observer.EventListener)
    
     /**
     Remove a listener for a given stage in the compilation pipeline
@@ -83,12 +73,12 @@ type Compiler interface {
     /**
     Dispatch a message on a given stage
      */
-    Dispatch(Stage, observer.Message)
+    Dispatch(common.Stage, observer.Message)
    
     /**
     Return this listeners for a given stage
      */
-    GetListeners(Stage) []observer.EventListener
+    GetListeners(common.Stage) []observer.EventListener
    
    
     /**
@@ -97,7 +87,7 @@ type Compiler interface {
     GetOptions() common.Options
     
     
-    GetDispatcher(Stage) observer.EventProducer
+    GetDispatcher(common.Stage) observer.EventProducer
    
 }
 
@@ -120,7 +110,7 @@ type AbstractCompiler struct {
     
     ExecutionModel      ir.ExecutionModel
     
-    listeners           map[Stage] []observer.EventListener
+    listeners           map[common.Stage] []observer.EventListener
     
     
 }
@@ -137,7 +127,7 @@ func NewCompiler(
 }
 
 
-func (c *AbstractCompiler) GetDispatcher(stage Stage) observer.EventProducer {
+func (c *AbstractCompiler) GetDispatcher(stage common.Stage) observer.EventProducer {
     return delegatingDispatcher{
         stage       : stage,
         compiler    : c,
@@ -171,12 +161,12 @@ func (c *AbstractCompiler) GetExecutionModel() ir.ExecutionModel {
 
 
 func (c *AbstractCompiler) AddListener(
-        stage Stage,
+        stage common.Stage,
         listener observer.EventListener,
 ) {
 
     if c.listeners == nil {
-        c.listeners = make(map[Stage] []observer.EventListener)
+        c.listeners = make(map[common.Stage] []observer.EventListener)
     }
     
    
@@ -191,7 +181,7 @@ func (c *AbstractCompiler) AddListener(
 
 
 
-func (c *AbstractCompiler) GetListeners(stage Stage) []observer.EventListener {
+func (c *AbstractCompiler) GetListeners(stage common.Stage) []observer.EventListener {
     if c.listeners != nil {
         return c.listeners[stage]
     }
@@ -200,7 +190,7 @@ func (c *AbstractCompiler) GetListeners(stage Stage) []observer.EventListener {
 
 
 func(c *AbstractCompiler) Dispatch(
-        stage Stage,
+        stage common.Stage,
         message observer.Message,
 ) {
     
@@ -230,7 +220,7 @@ func(c *AbstractCompiler) Dispatch(
 type delegatingDispatcher struct {
     observer.EventProducer
     
-    stage       Stage
+    stage       common.Stage
   
     compiler    *AbstractCompiler
 }

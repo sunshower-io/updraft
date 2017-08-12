@@ -4,6 +4,7 @@ import (
     "testing"
     "github.com/stretchr/testify/assert"
     "github.com/sunshower-io/updraft/common/observer"
+    "github.com/sunshower-io/updraft/common"
 )
 
 
@@ -27,21 +28,21 @@ func (t *MockListener) OnMessage(m observer.Message) {
 
 func TestAddingListenerToCompilerDoesNotThrowExceptions(t *testing.T) {
     compiler := new(AbstractCompiler)
-    compiler.AddListener(EXECUTING, new(MockListener))
+    compiler.AddListener(common.EXECUTING, new(MockListener))
 }
 
 func TestAddingListenerResultsInListenerAppearingInListenerListForStage(t *testing.T) {
     compiler := new(AbstractCompiler)
-    compiler.AddListener(EXECUTING, new(MockListener))
-    assert.Equal(t, len(compiler.GetListeners(EXECUTING)), 1)
+    compiler.AddListener(common.EXECUTING, new(MockListener))
+    assert.Equal(t, len(compiler.GetListeners(common.EXECUTING)), 1)
 }
 
 
 func TestAddingListenerResultsInListenerNotAppearingInIncorrectRegion(t *testing.T) {
     compiler := new(AbstractCompiler)
-    compiler.AddListener(EXECUTING, new(MockListener))
-    assert.Equal(t, len(compiler.GetListeners(EXECUTING)), 1)
-    assert.Equal(t, len(compiler.GetListeners(OPTIMIZING)), 0)
+    compiler.AddListener(common.EXECUTING, new(MockListener))
+    assert.Equal(t, len(compiler.GetListeners(common.EXECUTING)), 1)
+    assert.Equal(t, len(compiler.GetListeners(common.OPTIMIZING)), 0)
 }
 
 
@@ -51,8 +52,8 @@ func TestDispatchingMessageResultsInCorrectMessageDelivered(t *testing.T) {
     listener := new(MockListener)
     listener.topic = "frapper"
     message := newMessage("frapper")
-    compiler.AddListener(EXECUTING, listener)
-    compiler.Dispatch(EXECUTING, message)
+    compiler.AddListener(common.EXECUTING, listener)
+    compiler.Dispatch(common.EXECUTING, message)
     assert.Equal(t, listener.message, message)
 }
 

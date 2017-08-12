@@ -5,6 +5,7 @@ import (
 	"unicode"
 	"github.com/sunshower-io/updraft/common/io"
 	"github.com/sunshower-io/updraft/middle/core"
+    "github.com/sunshower-io/updraft/common/tokens"
 )
 
 
@@ -105,7 +106,7 @@ type PascalToken struct {
 
 type ErrorToken struct {
 	*core.BaseToken
-	Code ErrorCode
+	Code tokens.ErrorCode
 }
 
 func (t *PascalToken) Extract() error {
@@ -150,7 +151,7 @@ func NewPascalToken(t core.TokenType, s io.Source) (core.Token, error) {
 
 func NewError(
 		source io.Source,
-		code ErrorCode,
+		code tokens.ErrorCode,
 		value string,
 ) core.Token {
 	

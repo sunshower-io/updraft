@@ -3,11 +3,11 @@ package pascal
 import (
 	"testing"
 	"strings"
-	"github.com/sunshower-io/updraft/common/compiler"
 	"github.com/sunshower-io/updraft/common/observer"
 	"github.com/magiconair/properties/assert"
     "github.com/sunshower-io/updraft/front/parser"
     "github.com/sunshower-io/updraft/pascal/common"
+    ccommon "github.com/sunshower-io/updraft/common"
 )
 
 const HELLO = `PROGRAM hello (output);
@@ -45,7 +45,7 @@ BEGIN
     REPEAT
         writeln;
         write('enter new number (0 to quit): ');
-        read(number)
+        read(number);
         
         IF number = 0 THEN BEGIN
             writeln(number:12, 0.0:12:6);
@@ -96,7 +96,7 @@ func TestSimpleCommentsGenerateCorrectLexingEvents(t *testing.T) {
     }
 	
 	cmp.AddListener(
-		compiler.LEXING,
+		ccommon.LEXING,
 		newlineListener,
 	)
 	
@@ -115,7 +115,7 @@ func TestTokenLineNumberIsCorrectForEof(t *testing.T) {
     
     cmp := NewPascal(strings.NewReader(prog))
     cmp.AddListener(
-        compiler.PARSING,
+        ccommon.PARSING,
         &common.ParserMessageListener{},
     )
     
@@ -146,7 +146,7 @@ func TestTokenErrorsGenerateErrorEvents(t *testing.T) {
     }
     
     cmp.AddListener(
-        compiler.PARSING,
+        ccommon.PARSING,
         newlineListener,
     )
     
@@ -182,7 +182,7 @@ func TestCommentsGenerateCommentEvents(t *testing.T) {
     }
 	
 	cmp.AddListener(
-		compiler.LEXING,
+		ccommon.LEXING,
 		newlineListener,
 	)
 	
@@ -204,11 +204,11 @@ func TestReadingCommentConsumesTrailingBrace(t *testing.T) {
     }
     
     cmp.AddListener(
-        compiler.PARSING,
+        ccommon.PARSING,
         newlineListener,
     )
     cmp.AddListener(
-        compiler.PARSING,
+        ccommon.PARSING,
         &parser.ParserMessageListener{},
     )
     cmp.Compile()
@@ -228,13 +228,41 @@ func TestReadingInvalidTokensProducesErrors(t *testing.T) {
     }
     
     cmp.AddListener(
-        compiler.PARSING,
+        ccommon.PARSING,
         newlineListener,
     )
     cmp.AddListener(
-        compiler.PARSING,
+        ccommon.PARSING,
         &parser.ParserMessageListener{},
     )
+    cmp.Compile()
+}
+
+
+func TestReadingAssignmentWorks(t *testing.T) {
+    
+    prg := `
+    BEGIN
+     a := 0;
+     b := 1;
+    END.
+    `
+    
+    cmp := NewPascal(strings.NewReader(prg))
+    
+    newlineListener := &countingListener{
+        eventType:observer.PARSER_SUMMARY,
+    }
+    
+    cmp.AddListener(
+        ccommon.PARSING,
+        newlineListener,
+    )
+    cmp.AddListener(
+        ccommon.PARSING,
+        &parser.ParserMessageListener{},
+    )
+    
     cmp.Compile()
 }
 
@@ -247,11 +275,11 @@ func TestReadingComplexProgramWorks(t *testing.T) {
     }
     
     cmp.AddListener(
-        compiler.PARSING,
+        ccommon.PARSING,
         newlineListener,
     )
     cmp.AddListener(
-        compiler.PARSING,
+        ccommon.PARSING,
         &parser.ParserMessageListener{},
     )
     

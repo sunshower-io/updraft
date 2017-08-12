@@ -6,6 +6,7 @@ import (
 	"github.com/sunshower-io/updraft/common/compiler"
 	fio "github.com/sunshower-io/updraft/front/parser"
 	"github.com/sunshower-io/updraft/common/core"
+    "github.com/sunshower-io/updraft/common"
 )
 
 
@@ -26,12 +27,12 @@ func NewPascal(
 	baseCompiler := new(compiler.AbstractCompiler)
 
 	lexingDispatcher := baseCompiler.GetDispatcher(
-		compiler.LEXING,
+		common.LEXING,
 	)
 	
 	
 	parsingDispatcher := baseCompiler.GetDispatcher(
-		compiler.PARSING,
+		common.PARSING,
 	)
 
 	stream := fio.NewSource(

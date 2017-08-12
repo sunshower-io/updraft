@@ -5,8 +5,10 @@ import (
     "github.com/sunshower-io/updraft/middle/core"
     "github.com/sunshower-io/updraft/common/ir"
     "github.com/sunshower-io/updraft/pascal/tokens"
+    ctokens "github.com/sunshower-io/updraft/common/tokens"
     "github.com/sunshower-io/updraft/common/syntax"
-    "github.com/sunshower-io/updraft/common/compiler"
+    "github.com/sunshower-io/updraft/common/errors"
+    "github.com/sunshower-io/updraft/common"
 )
 
 func NewStatementParser(
@@ -18,6 +20,7 @@ func NewStatementParser(
             Parser: parser,
         },
         ExecutionModelFactory: parser.GetExecutionModelFactory(),
+        ErrorHandler: parser.GetErrorHandler(),
         
     }
 }
@@ -37,7 +40,7 @@ type StatementParser struct {
     
     Parser                      frontend.Parser
     
-    ErrorHandler                compiler.ErrorHandler
+    ErrorHandler                errors.ErrorHandler
     
     ExecutionModelFactory       ir.ExecutionModelFactory
 }
@@ -50,7 +53,7 @@ func (s *StatementParser) ParseList(
         token core.Token,
         parent ir.IntermediateNode,
         terminator core.TokenType,
-        errorCode tokens.ErrorCode,
+        errorCode ctokens.ErrorCode,
 ) error {
     
     var (
@@ -80,7 +83,7 @@ func (s *StatementParser) ParseList(
             token, err = s.NextToken()
         case tokens.IDENTIFIER:
             s.ErrorHandler.FlagError(
-                compiler.PARSING, 
+                common.PARSING, 
                 token, 
                 s,
                 tokens.MISSING_SEMICOLON,
@@ -91,7 +94,7 @@ func (s *StatementParser) ParseList(
             token, err = s.NextToken()
         } else {
             s.ErrorHandler.FlagError(
-                compiler.PARSING, 
+                common.PARSING, 
                 token,
                 s,
                 errorCode, 

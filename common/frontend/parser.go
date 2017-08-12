@@ -6,6 +6,7 @@ import (
     "github.com/sunshower-io/updraft/common/observer"
     core "github.com/sunshower-io/updraft/middle/core"
     ccore "github.com/sunshower-io/updraft/common/core"
+    "github.com/sunshower-io/updraft/common/errors"
 )
 
 type ParserSummary struct {
@@ -22,6 +23,7 @@ type ParserSummary struct {
 type Parser interface {
     observer.EventProducer
     
+    
     GetScanner()                        Scanner
    
     
@@ -32,6 +34,8 @@ type Parser interface {
     GetSymbolTables()                   ir.SymbolTableStack
     
     GetErrorCount()                     int
+    
+    GetErrorHandler()                   errors.ErrorHandler
     
     GetNextToken()                      core.Token
     

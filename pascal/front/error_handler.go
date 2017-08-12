@@ -1,15 +1,17 @@
 package front
 
 import (
+    "fmt"
     "github.com/sunshower-io/updraft/middle/core"
     "github.com/sunshower-io/updraft/common/compiler"
     "github.com/sunshower-io/updraft/common/observer"
-    "fmt"
-    "github.com/sunshower-io/updraft/pascal/tokens"
+    "github.com/sunshower-io/updraft/common/errors"
+    "github.com/sunshower-io/updraft/common"
+    "github.com/sunshower-io/updraft/common/tokens"
 )
 
 type PascalErrorHandler struct {
-    compiler.ErrorHandler
+    errors.ErrorHandler
     
     MaxErrors       int
     Compiler        compiler.Compiler
@@ -22,7 +24,7 @@ type PascalErrorHandler struct {
 
 
 func (p *PascalErrorHandler) Flag(
-        stage compiler.Stage,
+        stage common.Stage,
         token core.Token,
         value interface{},
 ) {
@@ -40,7 +42,7 @@ func (p *PascalErrorHandler) Flag(
 }
 
 func (p *PascalErrorHandler) FlagError(
-        stage compiler.Stage, 
+        stage common.Stage, 
         token core.Token, 
         value interface{},
         code tokens.ErrorCode, 

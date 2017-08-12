@@ -1,12 +1,12 @@
 package elements
 
 import (
+    "strings"
     "github.com/sunshower-io/updraft/middle/core"
     "github.com/sunshower-io/updraft/common/ir"
-    "github.com/sunshower-io/updraft/pascal/tokens"
     pir "github.com/sunshower-io/updraft/pascal/ir"
-    "strings"
-    "github.com/sunshower-io/updraft/common/compiler"
+    "github.com/sunshower-io/updraft/pascal/tokens"
+    "github.com/sunshower-io/updraft/common"
 )
 
 
@@ -48,7 +48,7 @@ func (p *ExpressionParser) parseFactor(
         
         if entry == nil {
             p.ErrorHandler.FlagError(
-                compiler.PARSING, 
+                common.PARSING, 
                 token, 
                 p, 
                 tokens.IDENTIFIER_UNDEFINED,
@@ -95,7 +95,7 @@ func (p *ExpressionParser) parseFactor(
             token, _ = p.NextToken()
         } else {
             p.ErrorHandler.FlagError(
-                compiler.PARSING, 
+                common.PARSING, 
                 token,
                 p, 
                 tokens.UNEXPECTED_TOKEN,
@@ -104,7 +104,7 @@ func (p *ExpressionParser) parseFactor(
 
     default:
         p.ErrorHandler.FlagError(
-            compiler.PARSING,
+            common.PARSING,
             token,
             p,
             tokens.UNEXPECTED_TOKEN,
@@ -222,7 +222,7 @@ func (p *ExpressionParser) Parse(
         token core.Token,
 ) (ir.IntermediateNode, error) {
     
-    return nil, nil
+    return p.parseExpression(token)
 }
 
 

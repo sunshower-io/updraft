@@ -10,15 +10,21 @@ import (
 	"github.com/sunshower-io/updraft/common/compiler"
 	ccore "github.com/sunshower-io/updraft/common/core"
     "github.com/sunshower-io/updraft/pascal/elements"
+    "github.com/sunshower-io/updraft/common/errors"
+    "github.com/sunshower-io/updraft/common"
 )
 
 type RecursiveDescentPascalParser struct {
 	frontend.Parser
 
-	errorHandler 		    compiler.ErrorHandler
+	errorHandler 		    errors.ErrorHandler
 	symbolTables  		    ir.SymbolTableStack
 	symbolFactory 		    ir.SymbolTableFactory
     executionModelFactory   ir.ExecutionModelFactory
+}
+
+func (p *RecursiveDescentPascalParser) GetErrorHandler() errors.ErrorHandler {
+    return p.errorHandler
 }
 
 func (p *RecursiveDescentPascalParser) GetSymbolTables() ir.SymbolTableStack {
@@ -54,7 +60,7 @@ func (p *RecursiveDescentPascalParser) Parse(
 		switch tokenType {
 		case core.ERROR_TOKEN:
 			p.errorHandler.Flag(
-				compiler.PARSING,
+				common.PARSING,
 				token,
 				token.GetValue(),
 			)
