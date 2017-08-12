@@ -11,6 +11,12 @@ Enumeration of possible IR attributes
 type AttributeKey int
 
 
+const (
+    ID      AttributeKey = 0
+    VALUE   AttributeKey = 1
+)
+
+
 /**
 Enumeration of IR node types
  */

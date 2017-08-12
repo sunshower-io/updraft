@@ -77,6 +77,9 @@ END.
 
 `
 
+
+
+
 func TestSimpleCommentsGenerateCorrectLexingEvents(t *testing.T) {
 
 	prog := `

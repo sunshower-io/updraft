@@ -1,0 +1,6 @@
+package pascal
+
+
+
+
+//func TestCompilerGeneratesIRWith

@@ -4,7 +4,14 @@ import "github.com/sunshower-io/updraft/common/utils"
 
 
 const (
-    NO_OP IntermediateNodeType = -1 
+    
+    NO_OP               IntermediateNodeType = -1 
+    ASSIGN              IntermediateNodeType = 0
+    VARIABLE            IntermediateNodeType = 1
+    INTEGER             IntermediateNodeType = 2
+    FLOAT               IntermediateNodeType = 3
+    STRING_LITERAL      IntermediateNodeType = 4
+    NOT                 IntermediateNodeType = 5
 )
 
 
@@ -20,6 +27,7 @@ type BaseIRNode struct {
     nodeType    IntermediateNodeType
     
     attributes  map[AttributeKey]interface{}
+    
 }
 
 

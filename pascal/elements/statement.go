@@ -18,6 +18,7 @@ func NewStatementParser(
             Parser: parser,
         },
         ExecutionModelFactory: parser.GetExecutionModelFactory(),
+        
     }
 }
 
@@ -59,7 +60,7 @@ func (s *StatementParser) ParseList(
         
         
         if terminate(token, terminator) {
-            goto DONE
+            return err
         }
        
         if token, err = s.CurrentToken(); err != nil {
@@ -97,9 +98,6 @@ func (s *StatementParser) ParseList(
             )
         }
     }
-    
-DONE: 
-    return err
     
     
 }
