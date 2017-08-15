@@ -36,12 +36,12 @@ func TestPascalTokenExtractsIdentifierCorrectly(t *testing.T) {
 
 func TestConsumingSingleDigitIntWorks(t *testing.T) {
 	source := parser.NewSource(
-		strings.NewReader("100"),
+		strings.NewReader("1014"),
 		observer.NewEventProducer(),
 	)
 	r, e := NewPascalNumber(source)
 	assert.NoError(t, e)
-	assert.Equal(t, r.GetValue(), 100)
+	assert.Equal(t, r.GetValue(), int64(1014))
 }
 
 func TestConsumingLargeIntWithExponentWorks(t *testing.T) {
