@@ -19,7 +19,9 @@ type AssignmentStatementParser struct {
     *StatementParser
 }
 
-func (p *AssignmentStatementParser) Parse(token core.Token) (ir.IntermediateNode, error) {
+func (p *AssignmentStatementParser) Parse(
+        token core.Token,
+) (ir.IntermediateNode, error) {
     
     symbolTables := p.Parser.GetSymbolTables()
     

@@ -8,6 +8,9 @@ import (
     "github.com/sunshower-io/updraft/front/parser"
     "github.com/sunshower-io/updraft/pascal/common"
     ccommon "github.com/sunshower-io/updraft/common"
+    "github.com/sunshower-io/updraft/common/core"
+    pir "github.com/sunshower-io/updraft/pascal/ir"
+    "github.com/sunshower-io/updraft/common/ir"
 )
 
 const HELLO = `PROGRAM hello (output);
@@ -239,31 +242,52 @@ func TestReadingInvalidTokensProducesErrors(t *testing.T) {
 }
 
 
+func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
+    
+    
+    prg := `
+    BEGIN
+    
+     a := 14 + 16 + 255 * 12345;
+    END.
+    `
+    model := compile(prg).GetExecutionModel()
+    result := new(ir.JsonExecutionModelPrinter).Print(model)
+    println(result)
+    
+}
+
+
 func TestReadingAssignmentWorks(t *testing.T) {
     
     prg := `
     BEGIN
-     a := 0;
-     b := 1;
+     a := 4
     END.
     `
     
-    cmp := NewPascal(strings.NewReader(prg))
     
-    newlineListener := &countingListener{
-        eventType:observer.PARSER_SUMMARY,
-    }
     
-    cmp.AddListener(
-        ccommon.PARSING,
-        newlineListener,
-    )
-    cmp.AddListener(
-        ccommon.PARSING,
-        &parser.ParserMessageListener{},
-    )
+    result := compile(prg) 
     
-    cmp.Compile()
+    model := result.GetExecutionModel()
+    root := model.GetRoot()
+    assert.Equal(t, root.GetType(), pir.COMPOUND)
+    
+    assert.Equal(t, root.Arity(), 1)
+    
+    child := root.GetChildren()[0]
+    assert.Equal(t, child.GetType(), ir.ASSIGN)
+    
+    assert.Equal(t, child.Arity(), 2)
+    
+    lhs := child.GetChildren()[0]
+    rhs := child.GetChildren()[1]
+    
+    assert.Equal(t, lhs.GetType(), ir.VARIABLE)
+    assert.Equal(t, rhs.GetType(), ir.INTEGER)
+    
+    
 }
 
 func TestReadingComplexProgramWorks(t *testing.T) {
@@ -359,4 +383,26 @@ func(s *countingListener) ListensFor(m observer.Message) bool {
 func (s *countingListener) OnMessage(m observer.Message) {
     s.messages = append(s.messages, m)
 	s.count++
+}
+
+
+
+func compile(prg string) core.CompilationResult {
+    
+    cmp := NewPascal(strings.NewReader(prg))
+    
+    newlineListener := &countingListener{
+        eventType:observer.PARSER_SUMMARY,
+    }
+    
+    cmp.AddListener(
+        ccommon.PARSING,
+        newlineListener,
+    )
+    cmp.AddListener(
+        ccommon.PARSING,
+        &parser.ParserMessageListener{},
+    )
+    
+    return cmp.Compile()
 }

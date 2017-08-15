@@ -62,7 +62,7 @@ func (e *pascalExtractor) Extract(
 	var token core.Token
 	source := scanner.Source()
 	token, er := e.skipWhitespace(scanner)
-	
+
 	if token != nil {
 		return token, nil
 	}

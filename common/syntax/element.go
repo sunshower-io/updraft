@@ -35,7 +35,7 @@ func (p *BaseElementParser) NextToken() (core.Token, error)  {
 // Return the current token without advancing the token stream
 // Or return an error if the lexer encounters an error
 func (p *BaseElementParser) CurrentToken() (core.Token, error) {
-    return p.Parser.GetNextToken(), nil
+    return p.Parser.GetCurrentToken(), nil
 }
 
 

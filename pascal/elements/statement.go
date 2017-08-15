@@ -58,6 +58,7 @@ func (s *StatementParser) ParseList(
     
     var (
         err error
+        tokenType core.TokenType 
     )
     for  {
         
@@ -77,7 +78,7 @@ func (s *StatementParser) ParseList(
             return err
         }
         
-        tokenType := token.GetType()
+        tokenType = token.GetType()
         switch tokenType {
         case tokens.SEMICOLON:
             token, err = s.NextToken()
@@ -90,18 +91,19 @@ func (s *StatementParser) ParseList(
             )
         }
         
-        if tokenType == terminator {
-            token, err = s.NextToken()
-        } else {
-            s.ErrorHandler.FlagError(
-                common.PARSING, 
-                token,
-                s,
-                errorCode, 
-            )
-        }
     }
     
+    if tokenType == terminator {
+        token, err = s.NextToken()
+    } else {
+        s.ErrorHandler.FlagError(
+            common.PARSING,
+            token,
+            s,
+            errorCode,
+        )
+    }
+    return err
     
 }
 

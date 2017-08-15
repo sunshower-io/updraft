@@ -34,8 +34,7 @@ func (p *ExpressionParser) parseFactor(
 ) ir.IntermediateNode {
     
     tokenType := token.GetType()
-    
-    
+   
     var rootNode ir.IntermediateNode
    
     symbolTables := p.Parser.GetSymbolTables()
@@ -125,7 +124,11 @@ func (p *ExpressionParser) parseTerm(
     token, _ = p.CurrentToken()
     tokenType := token.GetType()
     
-    for nodeType, ok := multiplicativeTypes[tokenType]; ok; {
+    for {
+        nodeType, ok := multiplicativeTypes[tokenType]
+        if !ok {
+            break
+        }
         operandNode := p.ExecutionModelFactory.NewNode(nodeType)
         operandNode.AddChild(rootNode)
         token, _ = p.NextToken()
@@ -175,7 +178,13 @@ func (p *ExpressionParser) parseSimpleExpression(
     
    
     
-    for nodeType, ok := additiveTypes[tokenType]; ok; {
+    for  {
+        nodeType, ok := additiveTypes[tokenType]
+        
+        if !ok {
+            break
+        }
+        
         operandNode := p.ExecutionModelFactory.NewNode(nodeType)
         operandNode.AddChild(rootNode)
         token, er = p.NextToken()
@@ -205,6 +214,7 @@ func (p *ExpressionParser) parseExpression(
     
     
     if irNodeType, exists := relationTypes[tokenType]; exists {
+        
         operandNode := p.ExecutionModelFactory.NewNode(irNodeType)
         operandNode.AddChild(root)
         token, er = p.NextToken()

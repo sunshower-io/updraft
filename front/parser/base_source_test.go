@@ -93,7 +93,7 @@ func TestSourceReturnsEOFForEmptyString(t *testing.T) {
 }
 
 func TestSourceProgression(t *testing.T) {
-	value := "abcde"
+	value := "abcde+"
 	reader := strings.NewReader(value)
 
 	source := NewSource(
@@ -123,6 +123,8 @@ func TestSourceProgression(t *testing.T) {
 
 	r, _ = source.nextCharacter()
 	assert.Equal(t, r, 'e')
+    r, _ = source.nextCharacter()
+    assert.Equal(t, r, '+')
 
 	r, _ = source.nextCharacter()
 	assert.Equal(t, r, sio.EOL)

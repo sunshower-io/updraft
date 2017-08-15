@@ -26,8 +26,10 @@ func (e *baseExecutionModelFactory) NewExecutionModel() ExecutionModel {
     return &BaseExecutionModel{}
 }
 
-func (e *baseExecutionModelFactory) NewNode(t IntermediateNodeType) IntermediateNode {
-    return &BaseIRNode{}
+func (e *baseExecutionModelFactory) NewNode(
+        t IntermediateNodeType,
+) IntermediateNode {
+    return &BaseIRNode{Type: t}
 }
 
 

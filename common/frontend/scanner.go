@@ -63,7 +63,8 @@ func (s *BaseScanner) CurrentToken() core.Token {
 }
 
 func (s *BaseScanner) CurrentCharacter() (rune, error) {
-	return s.source.CurrentCharacter()
+	r, e := s.source.CurrentCharacter()
+    return r, e
 }
 
 func (s *BaseScanner) NextCharacter() (rune, error) {

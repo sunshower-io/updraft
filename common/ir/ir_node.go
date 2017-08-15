@@ -24,9 +24,12 @@ type BaseIRNode struct {
     value       interface{}
     parent      IntermediateNode
     children    []IntermediateNode
-    nodeType    IntermediateNodeType
     
     attributes  map[AttributeKey]interface{}
+    
+    
+    
+    Type        IntermediateNodeType
     
 }
 
@@ -92,7 +95,7 @@ func (n *BaseIRNode) SetParent(
 
 
 func (n *BaseIRNode) GetType() IntermediateNodeType {
-    return n.nodeType
+    return n.Type
 }
 
 func (n *BaseIRNode) AddChild(child IntermediateNode) {
@@ -145,7 +148,7 @@ func (n *BaseIRNode) Clone() IntermediateNode {
     }
     
     clone := &BaseIRNode{
-        nodeType: n.nodeType,
+        Type: n.Type,
         attributes: cloneAttrs,
     }
     

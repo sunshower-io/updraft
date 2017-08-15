@@ -43,7 +43,8 @@ type Parser interface {
     
     Initialize()                        error
     
-    Parse(ccore.CompilationResult)      error
+    Parse()                             ccore.CompilationResult  
+    
     
     GetExecutionModelFactory()          ir.ExecutionModelFactory
 }

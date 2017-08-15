@@ -11,6 +11,8 @@ type TokenType struct {
 	Value string
 }
 
+
+
 func (t TokenType) String() string {
 	if t.Name == t.Value {
 		return fmt.Sprintf("Token('%s')", t.Value)

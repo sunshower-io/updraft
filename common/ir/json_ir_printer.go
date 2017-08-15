@@ -4,6 +4,7 @@ import (
     "io"
     "strings"
     "fmt"
+    "bytes"
 )
 
 const (
@@ -17,6 +18,12 @@ type JsonExecutionModelPrinter struct {
     
 }
 
+
+func (p *JsonExecutionModelPrinter) Print(model ExecutionModel) string {
+    var writer bytes.Buffer
+    p.PrintTo(model, &writer)
+    return writer.String()
+}
 
 func (p *JsonExecutionModelPrinter) PrintTo(
         model ExecutionModel,

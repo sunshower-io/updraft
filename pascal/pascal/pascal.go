@@ -15,9 +15,7 @@ type PascalCompiler struct {
 }
 
 func (c *PascalCompiler) Compile() core.CompilationResult {
-	result := core.NewCompilationResult()
-	c.GetParser().Parse(result)
-	return result
+	return c.GetParser().Parse()
 }
 
 func NewPascal(

@@ -46,6 +46,10 @@ func (f *AbstractParser) GetNextToken() core.Token {
 	return t
 }
 
+func (f *AbstractParser) GetCurrentToken() core.Token {
+    return f.scanner.CurrentToken()
+}
+
 func (f *AbstractParser) SendMessage(m observer.Message) {
 	f.EventProducer.SendMessage(m)
 }

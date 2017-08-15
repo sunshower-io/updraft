@@ -84,6 +84,8 @@ var (
 	DOT_DOT      = core.SymbolTokenType("DOT_DOT", "..", SPECIAL_TOKENS)
 )
 
+
+
 func IsSymbol(ch rune) bool {
 	str := string(ch)
 	_, exists := SPECIAL_TOKENS[str]
