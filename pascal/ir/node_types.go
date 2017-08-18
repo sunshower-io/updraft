@@ -2,6 +2,18 @@ package ir
 
 import "github.com/sunshower-io/updraft/common/ir"
 
+func init() {
+    ir.RegisterIntermediateType(COMPOUND, "compound")
+    ir.RegisterIntermediateType(LOOP, "loop")
+    ir.RegisterIntermediateType(TEST, "test")
+    ir.RegisterIntermediateType(ADD, "+")
+    ir.RegisterIntermediateType(SUBTRACT, "-")
+    ir.RegisterIntermediateType(MULTIPLY, "*")
+    ir.RegisterIntermediateType(FLOAT_DIVIDE, "/")
+    ir.RegisterIntermediateType(INTEGER_DIVIDE, "/")
+}
+
+
 const (
     
     PROGRAM             ir.IntermediateNodeType = 0
@@ -45,7 +57,6 @@ const (
     REAL_CONSTANT       ir.IntermediateNodeType = 35
     STRING_CONSTANT     ir.IntermediateNodeType = 36
     BOOLEAN_CONSTANT    ir.IntermediateNodeType = 37
-    
-    
-    
 )
+
+

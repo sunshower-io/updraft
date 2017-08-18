@@ -3,6 +3,8 @@ package ir
 import (
     "io"
     "github.com/sunshower-io/updraft/common/utils"
+    "fmt"
+    "github.com/sunshower-io/updraft/middle/core"
 )
 
 /**
@@ -16,11 +18,29 @@ const (
     VALUE   AttributeKey = 1
 )
 
+var intermediateNodeStringReps = make(map[IntermediateNodeType]string)
 
 /**
 Enumeration of IR node types
  */
 type IntermediateNodeType int
+
+func(t IntermediateNodeType) String() string {
+    
+    v, ok := intermediateNodeStringReps[t]
+    if ok {
+        return v
+    }
+    return fmt.Sprintf("unknown(value:%d)", int(t))
+}
+
+
+func RegisterIntermediateType(t IntermediateNodeType, str string) {
+    intermediateNodeStringReps[t] = str
+}
+
+
+
 
 
 
@@ -128,6 +148,8 @@ type IntermediateNode interface {
      */
     
     Arity() int
+    
+    GetToken() core.Token
 }
 
 

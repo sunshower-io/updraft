@@ -20,7 +20,7 @@ func (c *CompoundParser) Parse(
 ) (ir.IntermediateNode, error) {
     
     token, er := c.NextToken()
-    compoundNode := c.ExecutionModelFactory.NewNode(pir.COMPOUND)
+    compoundNode := c.ExecutionModelFactory.NewNode(pir.COMPOUND, token)
     
     statementParser := NewStatementParser(c.StatementParser.Parser)
     statementParser.ParseList(

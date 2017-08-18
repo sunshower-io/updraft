@@ -1,6 +1,9 @@
 package ir
 
-import "github.com/sunshower-io/updraft/common/utils"
+import (
+    "github.com/sunshower-io/updraft/common/utils"
+    "github.com/sunshower-io/updraft/middle/core"
+)
 
 
 const (
@@ -15,6 +18,16 @@ const (
 )
 
 
+func init() {
+    RegisterIntermediateType(NO_OP, "NoOp")
+    RegisterIntermediateType(ASSIGN, "Assign")
+    RegisterIntermediateType(VARIABLE, "var")
+    RegisterIntermediateType(INTEGER, "int64")
+    RegisterIntermediateType(FLOAT, "float64")
+    RegisterIntermediateType(STRING_LITERAL, "string")
+    RegisterIntermediateType(NOT, "not")
+}
+
 
 type BaseIRNode struct {
     IntermediateNode
@@ -27,10 +40,17 @@ type BaseIRNode struct {
     
     attributes  map[AttributeKey]interface{}
     
+    Token       core.Token
     
     
     Type        IntermediateNodeType
     
+    
+}
+
+
+func (n *BaseIRNode) GetToken() core.Token {
+    return n.Token
 }
 
 

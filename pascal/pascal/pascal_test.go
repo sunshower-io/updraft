@@ -287,6 +287,8 @@ func TestReadingAssignmentWorks(t *testing.T) {
     assert.Equal(t, lhs.GetType(), ir.VARIABLE)
     assert.Equal(t, rhs.GetType(), ir.INTEGER)
     
+    str := new(ir.JsonExecutionModelPrinter).Print(model)
+    println(str)
     
 }
 

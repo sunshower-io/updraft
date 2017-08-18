@@ -125,7 +125,7 @@ func (s *StatementParser) Parse(
         assignmentStatmentParser := NewAssignmentParser(s)
         executionModel, err = assignmentStatmentParser.Parse(token)
     default: 
-        executionModel = s.ExecutionModelFactory.NewNode(ir.NO_OP)
+        executionModel = s.ExecutionModelFactory.NewNode(ir.NO_OP, token)
     }
     setLineNumber(token, executionModel)
     return executionModel, err 

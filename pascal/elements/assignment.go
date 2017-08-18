@@ -25,7 +25,7 @@ func (p *AssignmentStatementParser) Parse(
     
     symbolTables := p.Parser.GetSymbolTables()
     
-    assignment := p.ExecutionModelFactory.NewNode(ir.ASSIGN)
+    assignment := p.ExecutionModelFactory.NewNode(ir.ASSIGN, token)
     
     target := strings.ToLower(token.GetText())
     symbol, er := symbolTables.Resolve(target)
@@ -41,7 +41,7 @@ func (p *AssignmentStatementParser) Parse(
         return nil, er
     }
     
-    variableNode := p.ExecutionModelFactory.NewNode(ir.VARIABLE)
+    variableNode := p.ExecutionModelFactory.NewNode(ir.VARIABLE, token)
    
     variableNode.SetAttribute(ir.ID, symbol)
     

@@ -1,5 +1,6 @@
 package ir
 
+import "github.com/sunshower-io/updraft/middle/core"
 
 func NewExecutionModelFactory() ExecutionModelFactory {
     return &baseExecutionModelFactory{}
@@ -12,7 +13,10 @@ func NewExecutionModelFactory() ExecutionModelFactory {
 type ExecutionModelFactory interface {
     NewExecutionModel() ExecutionModel
     
-    NewNode(IntermediateNodeType) IntermediateNode
+    NewNode(
+            IntermediateNodeType, 
+            core.Token,
+    ) IntermediateNode
     
 }
 
@@ -28,8 +32,12 @@ func (e *baseExecutionModelFactory) NewExecutionModel() ExecutionModel {
 
 func (e *baseExecutionModelFactory) NewNode(
         t IntermediateNodeType,
+        token core.Token,
 ) IntermediateNode {
-    return &BaseIRNode{Type: t}
+    return &BaseIRNode{
+        Type: t, 
+        Token: token,
+    }
 }
 
 

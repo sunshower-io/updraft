@@ -55,7 +55,7 @@ func (p *ExpressionParser) parseFactor(
             entry, _ = symbolTables.EnterLocal(name)
         }
         
-        rootNode = p.ExecutionModelFactory.NewNode(ir.VARIABLE)
+        rootNode = p.ExecutionModelFactory.NewNode(ir.VARIABLE, token)
         rootNode.SetAttribute(ir.ID, name)
         entry.AddLine(&ir.Line{
             Number:token.GetLineNumber(),
@@ -63,22 +63,22 @@ func (p *ExpressionParser) parseFactor(
         token, _ = p.NextToken()
         
     case tokens.INTEGER:
-        rootNode = p.ExecutionModelFactory.NewNode(ir.INTEGER)
+        rootNode = p.ExecutionModelFactory.NewNode(ir.INTEGER, token)
         rootNode.SetValue(token.GetValue())
         token, _ = p.NextToken()
     case tokens.REAL:
-        rootNode = p.ExecutionModelFactory.NewNode(ir.FLOAT)
+        rootNode = p.ExecutionModelFactory.NewNode(ir.FLOAT, token)
         rootNode.SetValue(token.GetValue())
         token, _ = p.NextToken()
         
     case tokens.STRING:
-        rootNode = p.ExecutionModelFactory.NewNode(ir.STRING_LITERAL)
+        rootNode = p.ExecutionModelFactory.NewNode(ir.STRING_LITERAL, token)
         rootNode.SetValue(token.GetValue())
         token, _ = p.NextToken()
         
     case tokens.NOT:
         token, _ = p.NextToken()
-        rootNode = p.ExecutionModelFactory.NewNode(ir.NOT)
+        rootNode = p.ExecutionModelFactory.NewNode(ir.NOT, token)
         
         rootNode.AddChild(p.parseFactor(token))
         
@@ -129,7 +129,7 @@ func (p *ExpressionParser) parseTerm(
         if !ok {
             break
         }
-        operandNode := p.ExecutionModelFactory.NewNode(nodeType)
+        operandNode := p.ExecutionModelFactory.NewNode(nodeType, token)
         operandNode.AddChild(rootNode)
         token, _ = p.NextToken()
         
@@ -166,7 +166,7 @@ func (p *ExpressionParser) parseSimpleExpression(
     
     
     if signType == tokens.MINUS {
-        negate := p.ExecutionModelFactory.NewNode(pir.NEGATE)
+        negate := p.ExecutionModelFactory.NewNode(pir.NEGATE, token)
         negate.AddChild(rootNode)
         rootNode = negate
     }
@@ -185,7 +185,7 @@ func (p *ExpressionParser) parseSimpleExpression(
             break
         }
         
-        operandNode := p.ExecutionModelFactory.NewNode(nodeType)
+        operandNode := p.ExecutionModelFactory.NewNode(nodeType, token)
         operandNode.AddChild(rootNode)
         token, er = p.NextToken()
         
@@ -214,8 +214,7 @@ func (p *ExpressionParser) parseExpression(
     
     
     if irNodeType, exists := relationTypes[tokenType]; exists {
-        
-        operandNode := p.ExecutionModelFactory.NewNode(irNodeType)
+        operandNode := p.ExecutionModelFactory.NewNode(irNodeType, token)
         operandNode.AddChild(root)
         token, er = p.NextToken()
         child, _ := p.parseSimpleExpression(token)

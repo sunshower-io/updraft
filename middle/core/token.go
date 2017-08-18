@@ -123,6 +123,21 @@ type BaseToken struct {
 	
 }
 
+func DetachedToken(
+        text string, 
+        value interface{},
+        position int, 
+        line int,
+        
+) Token {
+    return &BaseToken {
+        position: position,
+        lineNumber: line,
+        Text: text,
+        Value: value,
+    }
+}
+
 func (b *BaseToken) String() string {
 	return fmt.Sprintf(
 		"TOKEN{text: %s, line: %d, col: %d, type: %s, value: '%s'}",
