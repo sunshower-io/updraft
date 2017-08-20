@@ -71,8 +71,6 @@ func printNode(
     token := n.GetToken()
     if token != nil {
         p.write(w, depth+4, "\"value\":\"%v\",\n", n.GetValue())
-        p.write(w, depth+4, "\"text\":\"%s\",\n", token.GetText())
-        p.write(w, depth+4, "\"value\":\"%s\",\n", token.GetValue())
         p.write(w, depth+4, "\"line\":%d,\n", token.GetLineNumber())
         if children == nil {
             p.write(w, depth+4, "\"position\":%d\n", token.GetPosition())

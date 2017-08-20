@@ -149,7 +149,10 @@ type IntermediateNode interface {
     
     Arity() int
     
+    
     GetToken() core.Token
+    
+    ChildAt(int) IntermediateNode
 }
 
 

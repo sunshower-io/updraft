@@ -93,7 +93,7 @@ func (i indexPath)  Traverse(
         } 
         
         if idx >= arity {
-            return nil, InsufficientChildrenAtDepth{
+            return nil, InsufficientChildrenAtDepth {
                 depth: depth,
                 index: idx,
                 currentNode: current,

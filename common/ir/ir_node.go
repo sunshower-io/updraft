@@ -53,6 +53,14 @@ func (n *BaseIRNode) GetToken() core.Token {
     return n.Token
 }
 
+func (n *BaseIRNode) ChildAt(idx int) IntermediateNode {
+    
+    if !(n.children == nil || idx >= len(n.children)) {
+        return n.children[idx]
+    }
+    return nil
+}
+
 
 /**
     Mutators for ID

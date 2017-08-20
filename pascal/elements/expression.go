@@ -82,12 +82,9 @@ func (p *ExpressionParser) parseFactor(
         
         rootNode.AddChild(p.parseFactor(token))
         
-    case tokens.LBRACKET:
-        
+    case tokens.LPAREN:
         token, _ = p.NextToken()
-        
         rootNode, _ = p.parseExpression(token)
-        
         token, _ = p.CurrentToken()
         
         if token.GetType() == tokens.RPAREN {

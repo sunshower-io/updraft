@@ -44,6 +44,7 @@ func (p *AssignmentStatementParser) Parse(
     variableNode := p.ExecutionModelFactory.NewNode(ir.VARIABLE, token)
    
     variableNode.SetAttribute(ir.ID, symbol)
+    variableNode.SetValue(target)
     
     assignment.AddChild(variableNode)
     

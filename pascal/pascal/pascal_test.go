@@ -248,7 +248,7 @@ func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
     prg := `
     BEGIN
     
-     a := 14 + 16 + 255 * 12345;
+     a := -(1 + 2) * 3;
     END.
     `
     model := compile(prg).GetExecutionModel()
@@ -258,19 +258,51 @@ func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
 }
 
 func TestReadingMultipleAssignmentsWorks(t *testing.T) {
-    //prg := `
-    //
-    //BEGIN
-    //alpha := 10;
-    //beta := 20;
-    //
-    //END.
-    //
-    //`
+    prg := `
+
+    BEGIN
+    alpha := 10;
+    beta := 20;
+
+    END.
+
+    `
     
-    //model := compile(prg).GetExecutionModel()
+    model := compile(prg).GetExecutionModel()
     
+    root := model.GetRoot()
     
+    assert.Equal(t, root.GetType(), pir.COMPOUND)
+    
+    d, _ := ir.PathBy(ir.Index()).To("/0").Traverse(root)
+    assert.Equal(t, d.GetType(), ir.ASSIGN)
+    
+    assert.Equal(t, d.Arity(), 2)
+    
+    c := d.ChildAt(0)
+    
+    assert.Equal(t, c.GetType(), ir.VARIABLE)
+    assert.Equal(t, c.GetValue(), "alpha")
+    
+    c = d.ChildAt(1)
+    
+    assert.Equal(t, c.GetType(), ir.INTEGER)
+    assert.Equal(t, c.GetValue(), int64(10))
+    
+    d, _ = ir.PathBy(ir.Index()).To("/1").Traverse(root)
+    assert.Equal(t, d.GetType(), ir.ASSIGN)
+    
+    assert.Equal(t, d.Arity(), 2)
+    
+    c = d.ChildAt(0)
+    
+    assert.Equal(t, c.GetType(), ir.VARIABLE)
+    assert.Equal(t, c.GetValue(), "beta")
+    
+    c = d.ChildAt(1)
+    
+    assert.Equal(t, c.GetType(), ir.INTEGER)
+    assert.Equal(t, c.GetValue(), int64(20))
 }
 
 
