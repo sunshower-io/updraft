@@ -257,6 +257,22 @@ func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
     
 }
 
+func TestReadingMultipleAssignmentsWorks(t *testing.T) {
+    //prg := `
+    //
+    //BEGIN
+    //alpha := 10;
+    //beta := 20;
+    //
+    //END.
+    //
+    //`
+    
+    //model := compile(prg).GetExecutionModel()
+    
+    
+}
+
 
 func TestReadingAssignmentWorks(t *testing.T) {
     

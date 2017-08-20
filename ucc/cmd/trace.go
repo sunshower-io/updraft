@@ -6,6 +6,8 @@ import (
     "github.com/sunshower-io/updraft/ucc/cmd/root"
     "github.com/sunshower-io/updraft/front/parser"
     "github.com/sunshower-io/updraft/pascal/common"
+    common2 "github.com/sunshower-io/updraft/common"
+    "github.com/sunshower-io/updraft/common/ir"
 )
 
 type TraceConfiguration struct {
@@ -29,6 +31,7 @@ func (t *TraceConfiguration) TraceCommand(
         summarize bool
         tokens    bool
         symbols   bool
+        printIr   bool
     )
    
     
@@ -48,7 +51,7 @@ func (t *TraceConfiguration) TraceCommand(
             
             if summarize {
                 c.AddListener(
-                    compiler.PARSING,
+                    common2.PARSING,
                     &common.ParserMessageListener{
                         DumpSymbols : symbols,
                     },
@@ -57,15 +60,30 @@ func (t *TraceConfiguration) TraceCommand(
             
             if tokens {
                 c.AddListener(
-                    compiler.PARSING,
+                    common2.PARSING,
                     &parser.ParserMessageListener{},
                 )
             }
-            c.Compile()
+            
+            
+            
+            result := c.Compile()
+            
+            if printIr {
+                str := new(ir.JsonExecutionModelPrinter).Print(result.GetExecutionModel())
+                println(str)
+            }
             return nil
         },
     }
     
+    tc.Flags().BoolVarP(
+        &printIr,
+        "intermediate",
+        "p",
+        false,
+        "Print IR form",
+    )
     
     tc.Flags().BoolVarP(
         &symbols,

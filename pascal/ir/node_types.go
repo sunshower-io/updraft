@@ -20,8 +20,6 @@ const (
     PROCEDURE           ir.IntermediateNodeType = 1
     FUNCTION            ir.IntermediateNodeType = 2
     
-    
-    
     COMPOUND            ir.IntermediateNodeType = 3
     
     ASSIGNMENT          ir.IntermediateNodeType = 4

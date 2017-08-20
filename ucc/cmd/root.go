@@ -77,7 +77,6 @@ func (c *RootCmdConfiguration) NewRootCommand(
             and embeddability
         `,
         RunE: func(u *cobra.Command, args []string) error {
-            println("Coolbeans", r.File)
             return nil
         },
     }
