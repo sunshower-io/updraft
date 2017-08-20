@@ -257,12 +257,14 @@ func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
     
 }
 
+
+
 func TestReadingMultipleAssignmentsWorks(t *testing.T) {
     prg := `
 
     BEGIN
-    alpha := 10;
-    beta := 20;
+        firstThing := 10;
+        secondThing := 20;
 
     END.
 
@@ -282,7 +284,7 @@ func TestReadingMultipleAssignmentsWorks(t *testing.T) {
     c := d.ChildAt(0)
     
     assert.Equal(t, c.GetType(), ir.VARIABLE)
-    assert.Equal(t, c.GetValue(), "alpha")
+    assert.Equal(t, c.GetValue(), "firstthing")
     
     c = d.ChildAt(1)
     
@@ -297,7 +299,7 @@ func TestReadingMultipleAssignmentsWorks(t *testing.T) {
     c = d.ChildAt(0)
     
     assert.Equal(t, c.GetType(), ir.VARIABLE)
-    assert.Equal(t, c.GetValue(), "beta")
+    assert.Equal(t, c.GetValue(), "secondthing")
     
     c = d.ChildAt(1)
     
