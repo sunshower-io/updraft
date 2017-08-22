@@ -337,8 +337,6 @@ func TestReadingAssignmentWorks(t *testing.T) {
     assert.Equal(t, lhs.GetType(), ir.VARIABLE)
     assert.Equal(t, rhs.GetType(), ir.INTEGER)
     
-    str := new(ir.JsonExecutionModelPrinter).Print(model)
-    println(str)
     
 }
 
@@ -437,6 +435,14 @@ func (s *countingListener) OnMessage(m observer.Message) {
 	s.count++
 }
 
+
+func printTree(prg string) ir.ExecutionModel {
+    model := compile(prg).GetExecutionModel()
+    str := new(ir.JsonExecutionModelPrinter).Print(model)
+    println(str)
+    
+    return model
+}
 
 
 func compile(prg string) core.CompilationResult {
