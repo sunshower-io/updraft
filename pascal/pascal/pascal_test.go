@@ -9,7 +9,6 @@ import (
     "github.com/sunshower-io/updraft/pascal/common"
     ccommon "github.com/sunshower-io/updraft/common"
     "github.com/sunshower-io/updraft/common/core"
-    pir "github.com/sunshower-io/updraft/pascal/ir"
     "github.com/sunshower-io/updraft/common/ir"
 )
 
@@ -243,6 +242,7 @@ func TestReadingInvalidTokensProducesErrors(t *testing.T) {
 
 
 func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
+    t.Skip()
     
     
     prg := `
@@ -274,7 +274,7 @@ func TestReadingMultipleAssignmentsWorks(t *testing.T) {
     
     root := model.GetRoot()
     
-    assert.Equal(t, root.GetType(), pir.COMPOUND)
+    assert.Equal(t, root.GetType(), ir.SCOPE)
     
     d, _ := ir.PathBy(ir.Index()).To("/0").Traverse(root)
     assert.Equal(t, d.GetType(), ir.ASSIGN)
@@ -322,7 +322,7 @@ func TestReadingAssignmentWorks(t *testing.T) {
     
     model := result.GetExecutionModel()
     root := model.GetRoot()
-    assert.Equal(t, root.GetType(), pir.COMPOUND)
+    assert.Equal(t, root.GetType(), ir.SCOPE)
     
     assert.Equal(t, root.Arity(), 1)
     
@@ -434,6 +434,7 @@ func (s *countingListener) OnMessage(m observer.Message) {
     s.messages = append(s.messages, m)
 	s.count++
 }
+
 
 
 func printTree(prg string) ir.ExecutionModel {

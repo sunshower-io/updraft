@@ -6,7 +6,9 @@ import (
 )
 
 type CompoundReducer struct {
-    StatementReducer
+    common.Operation
+
+     
 }
 
 func (c CompoundReducer) Apply(
@@ -15,7 +17,7 @@ func (c CompoundReducer) Apply(
 ) interface{} {
     if children := node.GetChildren(); children != nil {
         for _, child := range children {
-            c.StatementReducer.Apply(child, ctx)
+            c.Operation.Apply(child, ctx)
         }
     }
     return nil

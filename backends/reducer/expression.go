@@ -6,7 +6,7 @@ import (
 )
 
 type ExpressionReducer struct {
-    StatementReducer
+    common.Operation 
 }
 
 

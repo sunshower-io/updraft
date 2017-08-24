@@ -4,7 +4,6 @@ import (
     "strings"
     "github.com/sunshower-io/updraft/middle/core"
     "github.com/sunshower-io/updraft/common/ir"
-    pir "github.com/sunshower-io/updraft/pascal/ir"
     "github.com/sunshower-io/updraft/pascal/tokens"
     "github.com/sunshower-io/updraft/common"
 )
@@ -165,7 +164,7 @@ func (p *ExpressionParser) parseSimpleExpression(
     
     
     if signType == tokens.MINUS {
-        negate := p.ExecutionModelFactory.NewNode(pir.NEGATE, token)
+        negate := p.ExecutionModelFactory.NewNode(ir.NEGATE, token)
         negate.AddChild(rootNode)
         rootNode = negate
     }
@@ -236,16 +235,16 @@ func (p *ExpressionParser) Parse(
 
 func getMultiplicativeTypes() OperationMap {
     result := make(OperationMap)
-    result[tokens.STAR] = pir.MULTIPLY
-    result[tokens.SLASH] = pir.FLOAT_DIVIDE
+    result[tokens.STAR] = ir.MULTIPLY
+    result[tokens.SLASH] = ir.FLOAT_DIVIDE
     return result
 }
 
 func getAdditiveTypes() OperationMap {
     result := make(OperationMap)
-    result[tokens.PLUS] = pir.ADD
-    result[tokens.MINUS] = pir.SUBTRACT
-    result[tokens.OR] = pir.OR
+    result[tokens.PLUS] = ir.ADD
+    result[tokens.MINUS] = ir.SUBTRACT
+    result[tokens.OR] = ir.OR
     return result
 }
 
@@ -253,11 +252,11 @@ func getAdditiveTypes() OperationMap {
 
 func relationalTypes() OperationMap {
     result := make(OperationMap)
-    result[tokens.EQUALS] = pir.EQUAL_TO
-    result[tokens.NOT_EQUALS] = pir.NOT_EQUAL_TO
-    result[tokens.LT] = pir.LESS_THAN
-    result[tokens.GT] = pir.GREATER_THAN
-    result[tokens.LTE] = pir.LTE
-    result[tokens.GTE] = pir.GTE
+    result[tokens.EQUALS] = ir.EQUAL_TO
+    result[tokens.NOT_EQUALS] = ir.NOT_EQUAL_TO
+    result[tokens.LT] = ir.LESS_THAN
+    result[tokens.GT] = ir.GREATER_THAN
+    result[tokens.LTE] = ir.LTE
+    result[tokens.GTE] = ir.GTE
     return result
 }

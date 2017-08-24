@@ -3,7 +3,6 @@ package elements
 import (
     "github.com/sunshower-io/updraft/common/ir"
     "github.com/sunshower-io/updraft/middle/core"
-    pir "github.com/sunshower-io/updraft/pascal/ir"
     "github.com/sunshower-io/updraft/pascal/tokens"
 )
 
@@ -20,7 +19,7 @@ func (c *CompoundParser) Parse(
 ) (ir.IntermediateNode, error) {
     
     token, er := c.NextToken()
-    compoundNode := c.ExecutionModelFactory.NewNode(pir.COMPOUND, token)
+    compoundNode := c.ExecutionModelFactory.NewNode(ir.SCOPE, token)
     
     statementParser := NewStatementParser(c.StatementParser.Parser)
     statementParser.ParseList(

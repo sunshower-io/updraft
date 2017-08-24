@@ -19,6 +19,10 @@ func (r *AbstractCompilationResult) GetExecutionModel() ir.ExecutionModel {
     return r.ExecutionModel
 }
 
+func (r *AbstractCompilationResult) GetSymbolTables() ir.SymbolTableStack {
+    return r.SymbolTables
+}
+
 func NewCompilationResult(
         model ir.ExecutionModel,
         symbolTables ir.SymbolTableStack,

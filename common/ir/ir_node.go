@@ -20,6 +20,21 @@ const (
     SUBTRACT            IntermediateNodeType = 8
     MULTIPLY            IntermediateNodeType = 9
     DIVIDE              IntermediateNodeType = 10
+    SCOPE               IntermediateNodeType = 11
+    NEGATE              IntermediateNodeType = 12
+    
+    INTEGER_DIVIDE      IntermediateNodeType = 13
+    FLOAT_DIVIDE        IntermediateNodeType = 14
+    OR                  IntermediateNodeType = 15
+    
+    GTE                 IntermediateNodeType = 16
+    LTE                 IntermediateNodeType = 17
+    LOOP                IntermediateNodeType = 18
+    TEST                IntermediateNodeType = 19
+    EQUAL_TO            IntermediateNodeType = 20
+    NOT_EQUAL_TO        IntermediateNodeType = 21
+    LESS_THAN           IntermediateNodeType = 22
+    GREATER_THAN        IntermediateNodeType = 23
 )
 
 
@@ -32,6 +47,16 @@ func init() {
     RegisterIntermediateType(STRING_LITERAL, "string")
     RegisterIntermediateType(NOT, "not")
     RegisterIntermediateType(EXPRESSION, "expr")
+    
+    
+    RegisterIntermediateType(SCOPE, "scope")
+    RegisterIntermediateType(LOOP, "loop")
+    RegisterIntermediateType(TEST, "test")
+    RegisterIntermediateType(ADD, "+")
+    RegisterIntermediateType(SUBTRACT, "-")
+    RegisterIntermediateType(MULTIPLY, "*")
+    RegisterIntermediateType(FLOAT_DIVIDE, "/")
+    RegisterIntermediateType(INTEGER_DIVIDE, "/")
 }
 
 

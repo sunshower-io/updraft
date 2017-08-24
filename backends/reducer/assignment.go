@@ -6,7 +6,7 @@ import (
 )
 
 type AssignmentReducer struct {
-    StatementReducer
+    common.Operation 
 }
 
 func (a AssignmentReducer) Apply(

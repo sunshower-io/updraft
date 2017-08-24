@@ -4,8 +4,34 @@ import (
     "testing"
     "github.com/sunshower-io/updraft/common/ir"
     "github.com/magiconair/properties/assert"
-    ir2 "github.com/sunshower-io/updraft/pascal/ir"
 )
+
+func TestEmptyCompoundStatementWithSimpleAssignmentWorks(t *testing.T) {
+    prg := `
+    BEGIN
+        a := 1;
+    END.
+    `
+    
+    model := compile(prg)
+    st := model.GetSymbolTables().Peek()
+    symbol, _ := st.Lookup("a")
+    assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(1))
+}
+
+func TestEmptyCompoundStatementWithSimpleBinaryExpressionAssignmentWorks(t *testing.T) {
+    
+    prg := `
+    BEGIN
+        a := 1 + 2;
+    END.
+    `
+    
+    model := compile(prg)
+    st := model.GetSymbolTables().Peek()
+    symbol, _ := st.Lookup("a")
+    assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(3))
+}
 
 func TestNestedEmptyNestedCompoundStatementsWorks(t *testing.T) {
     prg := `
@@ -20,7 +46,7 @@ func TestNestedEmptyNestedCompoundStatementsWorks(t *testing.T) {
     
     node, _ := ir.PathBy(ir.Index()).To("/0").Traverse(model.GetRoot())
     
-    assert.Equal(t, node.GetType(), ir2.COMPOUND)
+    assert.Equal(t, node.GetType(), ir.SCOPE)
     
     node, _ = ir.PathBy(ir.Index()).To("/").Traverse(model.GetRoot())
     assert.Equal(t, node, model.GetRoot())
@@ -28,6 +54,7 @@ func TestNestedEmptyNestedCompoundStatementsWorks(t *testing.T) {
 
 
 func TestNestedAssignmentsWithAllProductionsInAllPositions(t *testing.T) {
+    t.Skip()
     prg := `
     
     

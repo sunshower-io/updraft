@@ -5,6 +5,7 @@ import (
     "github.com/sunshower-io/updraft/common/ir"
     "github.com/sunshower-io/updraft/common/observer"
     "github.com/sunshower-io/updraft/backends/common"
+    "fmt"
 )
 
 
@@ -17,11 +18,12 @@ var (
 
 type Reducer struct {
     common.Backend
-    ErrorHandler        common.RuntimeErrorHandler
     
     executionModel      ir.ExecutionModel
     
     symbolTables        ir.SymbolTableStack
+    RootOperation       StatementReducer 
+    ErrorHandler        common.RuntimeErrorHandler
     
     ErrorCount          uint 
     InstructionCount    uint 
@@ -33,18 +35,43 @@ func (r *Reducer) IncrementOperations() {
 }
 
 func (r *Reducer) ResolveFor(
-    common.Operation,
-    ir.IntermediateNodeType,
+    parent common.Operation,
+    nodeType ir.IntermediateNodeType,
 ) common.Operation {
-    return nil
+    
+    switch nodeType {
+    case ir.SCOPE:
+        return CompoundReducer{parent}
+    case ir.ASSIGN:
+        return AssignmentReducer{parent}
+    case ir.EXPRESSION:
+        return ExpressionReducer{parent}
+    case ir.INTEGER:
+        return PrimitiveReducer{}
+    case ir.ADD:
+        return &AddOperation{}
+        
+    }
+    panic(fmt.Sprintf("No reducer %s", nodeType))
 }
 
 
 func (r *Reducer) Resolve(
-    common.Operation,
-    ir.IntermediateNode,
+    parent common.Operation,
+    node ir.IntermediateNode,
 ) common.Operation {
-    return nil
+   
+    switch node.GetType() {
+    case ir.SCOPE:
+        return CompoundReducer{parent}
+    case ir.ASSIGN:
+        return AssignmentReducer{parent}
+    case ir.EXPRESSION:
+        return ExpressionReducer{parent}
+    case ir.INTEGER:
+        return PrimitiveReducer{}
+    }
+    panic(fmt.Sprintf("No reducer %s", node.GetType()))
 }
 
 
@@ -63,11 +90,14 @@ func (r *Reducer) Process(
     startTime := time.Now()
     
     
-    statementReducer := StatementReducer{}
+    statementReducer := StatementReducer{
+        ErrorHandler: r.ErrorHandler,
+    }
     
     root := model.GetRoot()
-    
-    statementReducer.Apply(root, r)
+    if root != nil {
+        statementReducer.Apply(root, r)
+    }
     
     
     

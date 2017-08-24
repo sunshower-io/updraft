@@ -26,6 +26,9 @@ func (s *BaseSymbol) GetLines() []*Line {
 }
 
 func (s *BaseSymbol) SetAttribute(k Key, value interface{}) {
+    if s.attributes == nil {
+        s.attributes = make(map[Key]interface{})
+    }
 	s.attributes[k] = value
 }
 

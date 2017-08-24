@@ -43,7 +43,7 @@ func (s *BaseSymbolTableStack) get(l int) (SymbolTable, error) {
 
 
 func(s *BaseSymbolTableStack) Peek() SymbolTable {
-	return nil
+	return s.stack[s.height] 
 }
 
 func(s *BaseSymbolTableStack) Pop() SymbolTable {
