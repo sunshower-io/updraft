@@ -49,16 +49,25 @@ func RegisterIntermediateType(t IntermediateNodeType, str string) {
  */
 
 type IntermediateNode interface {
+    
+    Get(int) IntermediateNode
+    
+    
+    GetLineNumber() int
+    
+    SetLineNumber(int)
    
     /**
     Update the line-number associated with this node
      */
-    SetLine(int)
+    SetLine(string)
    
     /**
     Retrieve the line-number associated with this node
      */
-    GetLine() int
+    
+    
+    GetLine() string
     
    
     /**

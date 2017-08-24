@@ -3,10 +3,10 @@ package common
 import (
 	"fmt"
 	"github.com/docker/docker/api/types/time"
-	"github.com/sunshower-io/updraft/back/interpreter"
 	"github.com/sunshower-io/updraft/common/io"
 	"github.com/sunshower-io/updraft/common/observer"
 	front "github.com/sunshower-io/updraft/common/frontend"
+    "github.com/sunshower-io/updraft/backends/common"
 )
 
 const PARSER_SUMMARY_FORMAT = "\n%20d source lines." +
@@ -138,21 +138,24 @@ func (s *BackendMessageListener) OnMessage(m observer.Message) {
 
 	case observer.INTERPRETER_SUMMARY:
 
-		var summary *interpreter.InterpreterSummary
+		var summary *common.Summary
 		b := m.GetBody()
 
 		switch b.(type) {
-		case interpreter.InterpreterSummary:
-			u := b.(interpreter.InterpreterSummary)
+		case common.Summary:
+			u := b.(common.Summary)
+            
 			summary = &u
-		case *interpreter.InterpreterSummary:
-			summary = b.(*interpreter.InterpreterSummary)
+		case *common.Summary:
+			summary = b.(*common.Summary)
 
 		}
 		printInterpreterSummary(summary)
 	}
 
 }
-func printInterpreterSummary(summary *interpreter.InterpreterSummary) {
+
+
+func printInterpreterSummary(summary *common.Summary) {
 
 }

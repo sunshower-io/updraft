@@ -14,15 +14,7 @@ type SymbolTable interface {
 	Entries(bool) []Symbol
 }
 
-type Key struct {
-	Id string
-}
 
-func KeyedBy(k string) Key {
-	return Key{
-		Id: k,
-	}
-}
 
 type Symbol interface {
 	GetName() string

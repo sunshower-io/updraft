@@ -8,5 +8,8 @@ import (
 type Backend interface {
 	observer.EventProducer
 
-	Process(ir.ExecutionModel, ir.SymbolTable) error
+	Process(
+            ir.ExecutionModel, 
+            ir.SymbolTableStack,
+    ) error
 }

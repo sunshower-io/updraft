@@ -15,17 +15,23 @@ const (
     FLOAT               IntermediateNodeType = 3
     STRING_LITERAL      IntermediateNodeType = 4
     NOT                 IntermediateNodeType = 5
+    EXPRESSION          IntermediateNodeType = 6
+    ADD                 IntermediateNodeType = 7
+    SUBTRACT            IntermediateNodeType = 8
+    MULTIPLY            IntermediateNodeType = 9
+    DIVIDE              IntermediateNodeType = 10
 )
 
 
 func init() {
-    RegisterIntermediateType(NO_OP, "NoOp")
-    RegisterIntermediateType(ASSIGN, "Assign")
+    RegisterIntermediateType(NO_OP, "no-op")
+    RegisterIntermediateType(ASSIGN, "assign")
     RegisterIntermediateType(VARIABLE, "var")
     RegisterIntermediateType(INTEGER, "int64")
     RegisterIntermediateType(FLOAT, "float64")
     RegisterIntermediateType(STRING_LITERAL, "string")
     RegisterIntermediateType(NOT, "not")
+    RegisterIntermediateType(EXPRESSION, "expr")
 }
 
 
@@ -33,7 +39,8 @@ type BaseIRNode struct {
     IntermediateNode
     
     id          utils.Identifier
-    line        int
+    line        string 
+    lineNumber  int
     value       interface{}
     parent      IntermediateNode
     children    []IntermediateNode
@@ -46,6 +53,10 @@ type BaseIRNode struct {
     Type        IntermediateNodeType
     
     
+}
+
+func (n *BaseIRNode) Get(i int) IntermediateNode {
+    return n.children[i]
 }
 
 
@@ -82,12 +93,21 @@ func (n *BaseIRNode) GetId() utils.Identifier {
 /**
     Mutators for line
  */
-func (n *BaseIRNode) SetLine(line int) {
-    n.line = line
+func (n *BaseIRNode) SetLineNumber(line int) {
+    n.lineNumber = line
 }
 
-func (n *BaseIRNode) GetLine() int {
+func (n *BaseIRNode) GetLineNumber() int {
+    return n.lineNumber
+}
+
+
+func (n *BaseIRNode) GetLine() string {
     return n.line
+}
+
+func (n *BaseIRNode) SetLine(line string) {
+    n.line = line
 }
 
 

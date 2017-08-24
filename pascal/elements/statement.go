@@ -31,7 +31,7 @@ func setLineNumber(
         node ir.IntermediateNode,
 ) {
     if token != nil {
-        node.SetLine(token.GetLineNumber())
+        node.SetLineNumber(token.GetLineNumber())
     }
 }
 

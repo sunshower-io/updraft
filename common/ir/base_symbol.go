@@ -6,7 +6,7 @@ type BaseSymbol struct {
 	lines []*Line
 	table SymbolTable
 
-	attributes map[string]interface{}
+	attributes map[Key]interface{}
 }
 
 func (s *BaseSymbol) GetName() string {
@@ -26,9 +26,9 @@ func (s *BaseSymbol) GetLines() []*Line {
 }
 
 func (s *BaseSymbol) SetAttribute(k Key, value interface{}) {
-	s.attributes[k.Id] = value
+	s.attributes[k] = value
 }
 
 func (s *BaseSymbol) GetAttribute(key Key) interface{} {
-	return s.attributes[key.Id]
+	return s.attributes[key]
 }
