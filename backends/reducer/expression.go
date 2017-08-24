@@ -2,6 +2,7 @@ package reducer
 
 import (
     "github.com/sunshower-io/updraft/common/ir"
+    "github.com/sunshower-io/updraft/backends/common"
 )
 
 type ExpressionReducer struct {
@@ -11,7 +12,7 @@ type ExpressionReducer struct {
 
 func (r ExpressionReducer) Apply(
         node ir.IntermediateNode, 
-        ctx ReducerContext,
+        ctx common.OperationContext,
 ) interface{} {
     
     reducer := ctx.ResolveFor(r, node.GetType())

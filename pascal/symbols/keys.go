@@ -2,12 +2,12 @@ package symbols
 
 import "github.com/sunshower-io/updraft/common/ir"
 
-var (
-    CONSTANT_VALUE       =   1
-    ROUTINE_CODE         =   2
-    ROUTINE_SYMBOL_TABLE =   3
+const (
+    CONSTANT_VALUE       ir.Key =   1
+    ROUTINE_CODE         ir.Key =   2
+    ROUTINE_SYMBOL_TABLE ir.Key =   3
     
-    ROUTINE_PARAMETERS =     4
-    ROUTINE_ROUTINES   =     5
-    DATA_VALUE         =     6
+    ROUTINE_PARAMETERS ir.Key =     4
+    ROUTINE_ROUTINES   ir.Key =     5
+    DATA_VALUE         ir.Key =     6
 )

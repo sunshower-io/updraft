@@ -2,7 +2,6 @@ package common
 
 import (
     "github.com/sunshower-io/updraft/common/ir"
-    "github.com/sunshower-io/updraft/common/backend"
 )
 
 type OperationContext interface {
@@ -10,15 +9,15 @@ type OperationContext interface {
     IncrementOperations()
     
     ResolveFor(
-            backend.Operation, 
+            Operation, 
             ir.IntermediateNodeType,
-    ) backend.Operation
+    ) Operation
     
     
     Resolve(
-            backend.Operation, 
+            Operation, 
             ir.IntermediateNode,
-    ) backend.Operation
+    ) Operation
     
 }
 

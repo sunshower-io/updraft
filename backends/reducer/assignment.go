@@ -2,6 +2,7 @@ package reducer
 
 import (
     "github.com/sunshower-io/updraft/common/ir"
+    "github.com/sunshower-io/updraft/backends/common"
 )
 
 type AssignmentReducer struct {
@@ -10,7 +11,7 @@ type AssignmentReducer struct {
 
 func (a AssignmentReducer) Apply(
         node ir.IntermediateNode,
-        ctx ReducerContext,
+        ctx  common.OperationContext,
 ) interface{} {
     
     children := node.GetChildren()

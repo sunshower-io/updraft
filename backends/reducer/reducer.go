@@ -4,7 +4,6 @@ import (
     "time"
     "github.com/sunshower-io/updraft/common/ir"
     "github.com/sunshower-io/updraft/common/observer"
-    "github.com/sunshower-io/updraft/common/backend"
     "github.com/sunshower-io/updraft/backends/common"
 )
 
@@ -14,42 +13,16 @@ var (
     
 )
 
-type ReducerContext struct {
-    common.OperationContext
-} 
-
-
-func (r *ReducerContext) ResolveFor(
-        operation backend.Operation, 
-        nodeType ir.IntermediateNodeType,
-) backend.Operation {
-    
-    
-    
-    switch nodeType {
-    case ir.ADD:
-        return add
-    }
-    
-    return nil
-}
-
-
-func (r *ReducerContext) Resolve(
-        operation backend.Operation, 
-        node ir.IntermediateNode,
-) backend.Operation {
-    return nil 
-}
 
 
 type Reducer struct {
-    backend.Backend
-    Parent              backend.Operation
-    ErrorHandler        backend.RuntimeErrorHandler
+    common.Backend
+    Parent              common.Operation
+    ErrorHandler        common.RuntimeErrorHandler
     
     
     
+    ctx                 common.OperationContext
     executionModel      ir.ExecutionModel
     
     symbolTables        ir.SymbolTableStack
@@ -57,6 +30,28 @@ type Reducer struct {
     ErrorCount          uint 
     InstructionCount    uint 
 }
+
+
+func (r *Reducer) IncrementOperations() {
+    r.ErrorCount++
+}
+
+func (r *Reducer) ResolveFor(
+    common.Operation,
+    ir.IntermediateNodeType,
+) common.Operation {
+    return nil
+}
+
+
+func (r *Reducer) Resolve(
+    common.Operation,
+    ir.IntermediateNode,
+) common.Operation {
+    return nil
+}
+
+
 
 
 
@@ -76,7 +71,7 @@ func (r *Reducer) Process(
     
     root := model.GetRoot()
     
-    statementReducer.Apply(root)
+    statementReducer.Apply(root, r)
     
     
     

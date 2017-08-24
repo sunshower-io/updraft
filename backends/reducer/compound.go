@@ -2,7 +2,7 @@ package reducer
 
 import (
     "github.com/sunshower-io/updraft/common/ir"
-    "github.com/sunshower-io/updraft/common/backend"
+    "github.com/sunshower-io/updraft/backends/common"
 )
 
 type CompoundReducer struct {
@@ -11,7 +11,7 @@ type CompoundReducer struct {
 
 func (c CompoundReducer) Apply(
         node ir.IntermediateNode, 
-        ctx backend.OperationContext,
+        ctx common.OperationContext,
 ) interface{} {
     if children := node.GetChildren(); children != nil {
         for _, child := range children {

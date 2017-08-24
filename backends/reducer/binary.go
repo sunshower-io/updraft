@@ -2,7 +2,7 @@ package reducer
 
 import (
     "github.com/sunshower-io/updraft/common/ir"
-    "github.com/sunshower-io/updraft/common/backend"
+    "github.com/sunshower-io/updraft/backends/common"
 )
 
 
@@ -14,7 +14,7 @@ type AddOperation struct {
 
 func (o AddOperation) Apply(
         node ir.IntermediateNode,
-        ctx backend.OperationContext,
+        ctx common.OperationContext,
 ) interface{} {
     reducer := o.StatementReducer
     
@@ -26,10 +26,10 @@ func (o AddOperation) Apply(
     
    
     if isFloat(lhs) || isFloat(rhs) {
-        return float64(lhs) + float64(rhs)
+        return lhs.(float64) + rhs.(float64)
     }
     
-    return int64(lhs) + int64(rhs)
+    return lhs.(int64) + rhs.(int64)
 }
 
 

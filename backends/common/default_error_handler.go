@@ -1,4 +1,4 @@
-package backend
+package common 
 
 import "github.com/sunshower-io/updraft/common/ir"
 
@@ -10,7 +10,7 @@ type BaseRuntimeErrorHandler struct {
 func (b *BaseRuntimeErrorHandler) Flag(
         node ir.IntermediateNode, 
         code RuntimeErrorCode, 
-        backend Backend,
+        be Backend,
 ) {
     
     //lineNumber := resolveLine(node)
