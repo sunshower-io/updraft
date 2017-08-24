@@ -17,12 +17,8 @@ var (
 
 type Reducer struct {
     common.Backend
-    Parent              common.Operation
     ErrorHandler        common.RuntimeErrorHandler
     
-    
-    
-    ctx                 common.OperationContext
     executionModel      ir.ExecutionModel
     
     symbolTables        ir.SymbolTableStack
@@ -89,3 +85,14 @@ func (r *Reducer) Process(
 
 
 
+func NewReductionExecutionEngine(
+        executionModel ir.ExecutionModel, 
+        stack ir.SymbolTableStack,
+) common.Backend  {
+    return &Reducer {
+        Backend: common.NewBaseBackend(),
+        ErrorHandler: common.NewRuntimeErrorHandler(),
+        symbolTables: stack,
+        executionModel: executionModel,
+    }
+}

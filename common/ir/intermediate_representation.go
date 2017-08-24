@@ -201,13 +201,5 @@ type ExecutionModel interface {
 
 
 
-type AbstractExecutionModel struct {
-    ExecutionModel
-}
-
-func NewExecutionModel() ExecutionModel {
-    return new(AbstractExecutionModel)
-}
-
 
 

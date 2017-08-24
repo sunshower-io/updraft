@@ -7,6 +7,7 @@ import (
 	fio "github.com/sunshower-io/updraft/front/parser"
 	"github.com/sunshower-io/updraft/common/core"
     "github.com/sunshower-io/updraft/common"
+    "github.com/sunshower-io/updraft/backends/reducer"
 )
 
 
@@ -15,7 +16,17 @@ type PascalCompiler struct {
 }
 
 func (c *PascalCompiler) Compile() core.CompilationResult {
-	return c.GetParser().Parse()
+    parser := c.GetParser()
+	compilationResult := parser.Parse()
+    reducer := reducer.NewReductionExecutionEngine(
+        compilationResult.GetExecutionModel(), 
+        parser.GetSymbolTables(),
+    ) 
+    reducer.Process(
+        compilationResult.GetExecutionModel(), 
+        parser.GetSymbolTables(),
+    )
+    return compilationResult
 }
 
 func NewPascal(

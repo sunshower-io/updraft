@@ -10,7 +10,7 @@ type BaseRuntimeErrorHandler struct {
 func (b *BaseRuntimeErrorHandler) Flag(
         node ir.IntermediateNode, 
         code RuntimeErrorCode, 
-        be Backend,
+        operation Operation,
 ) {
     
     //lineNumber := resolveLine(node)
@@ -25,3 +25,8 @@ func resolveLine(node ir.IntermediateNode) (line string) {
     return 
 }
 
+
+
+func NewRuntimeErrorHandler() RuntimeErrorHandler{
+    return &BaseRuntimeErrorHandler{}
+}

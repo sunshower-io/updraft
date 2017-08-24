@@ -89,7 +89,10 @@ func (p *RecursiveDescentPascalParser) Parse() ccore.CompilationResult {
         }))
    
    
-    return ccore.NewCompilationResult(executionModel)
+    return ccore.NewCompilationResult(
+        executionModel, 
+        p.GetSymbolTables(),
+    )
     
 }
 
