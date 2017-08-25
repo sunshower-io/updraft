@@ -242,7 +242,6 @@ func TestReadingInvalidTokensProducesErrors(t *testing.T) {
 
 
 func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
-    t.Skip()
     
     
     prg := `
@@ -251,9 +250,11 @@ func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
      a := -(1 + 2) * 3;
     END.
     `
-    model := compile(prg).GetExecutionModel()
-    result := new(ir.JsonExecutionModelPrinter).Print(model)
-    println(result)
+    
+    model := compile(prg)
+    st := model.GetSymbolTables().Peek()
+    symbol, _ := st.Lookup("a")
+    assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(-6))
     
 }
 

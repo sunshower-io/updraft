@@ -57,6 +57,7 @@ func init() {
     RegisterIntermediateType(MULTIPLY, "*")
     RegisterIntermediateType(FLOAT_DIVIDE, "/")
     RegisterIntermediateType(INTEGER_DIVIDE, "/")
+    RegisterIntermediateType(NEGATE, "negate")
 }
 
 

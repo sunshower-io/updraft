@@ -5,14 +5,11 @@ import (
     "github.com/sunshower-io/updraft/backends/common"
 )
 
-
-
-
-type AddOperation struct {
-    common.Operation
+type DivideOperation struct {
+    common.Operation 
 }
 
-func (o AddOperation) Apply(
+func (o DivideOperation) Apply(
         node ir.IntermediateNode,
         ctx common.OperationContext,
 ) interface{} {
@@ -23,28 +20,10 @@ func (o AddOperation) Apply(
     lhs := reducer.Apply(lhsNode, ctx)
     rhs := reducer.Apply(rhsNode, ctx)
     
-   
+    
     if isFloat(lhs) || isFloat(rhs) {
-        return lhs.(float64) + rhs.(float64)
+        return lhs.(float64) / rhs.(float64)
     }
     
-    return lhs.(int64) + rhs.(int64)
+    return lhs.(int64) / rhs.(int64)
 }
-
-
-func isInt(lhs interface{}) bool {
-    switch lhs.(type) {
-    case int, int64:
-        return true
-    }
-    return false
-}
-
-func isFloat(lhs interface{}) bool {
-    switch lhs.(type) {
-    case float32, float64:
-        return true
-    }
-    return false
-}
-

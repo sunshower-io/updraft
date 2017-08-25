@@ -6,6 +6,20 @@ import (
     "github.com/magiconair/properties/assert"
 )
 
+func TestNegationOfSimpleIntegerWorks(t *testing.T) {
+    
+    prg := `
+    BEGIN
+        a := -1;
+    END.
+    `
+    
+    model := compile(prg)
+    st := model.GetSymbolTables().Peek()
+    symbol, _ := st.Lookup("a")
+    assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(-1))
+}
+
 func TestEmptyCompoundStatementWithSimpleAssignmentWorks(t *testing.T) {
     prg := `
     BEGIN

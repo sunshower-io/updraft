@@ -49,8 +49,15 @@ func (r *Reducer) ResolveFor(
     case ir.INTEGER:
         return PrimitiveReducer{}
     case ir.ADD:
-        return &AddOperation{}
-        
+        return &AddOperation{parent}
+    case ir.NEGATE:
+        return NegationOperation{parent}
+
+    case ir.MULTIPLY:
+        return &AddOperation{parent}
+
+    case ir.DIVIDE:
+        return &AddOperation{parent}
     }
     panic(fmt.Sprintf("No reducer %s", nodeType))
 }
@@ -70,6 +77,16 @@ func (r *Reducer) Resolve(
         return ExpressionReducer{parent}
     case ir.INTEGER:
         return PrimitiveReducer{}
+    case ir.NEGATE:
+        return NegationOperation{parent}
+
+    case ir.MULTIPLY:
+        return &AddOperation{parent}
+
+    case ir.ADD:
+        return &AddOperation{parent}
+    case ir.DIVIDE:
+        return &AddOperation{parent}
     }
     panic(fmt.Sprintf("No reducer %s", node.GetType()))
 }
