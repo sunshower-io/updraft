@@ -237,7 +237,8 @@ func (p *ExpressionParser) Parse(
 func getMultiplicativeTypes() OperationMap {
     result := make(OperationMap)
     result[tokens.STAR] = ir.MULTIPLY
-    result[tokens.SLASH] = ir.FLOAT_DIVIDE
+    result[tokens.SLASH] = ir.DIVIDE
+    result[tokens.MOD] = ir.MODULO
     return result
 }
 

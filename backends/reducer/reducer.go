@@ -1,20 +1,86 @@
 package reducer
 
 import (
+    "fmt"
     "time"
     "github.com/sunshower-io/updraft/common/ir"
     "github.com/sunshower-io/updraft/common/observer"
     "github.com/sunshower-io/updraft/backends/common"
-    "fmt"
 )
+
+
 
 
 var (
-    add = AddOperation{}
-    
+    add         = AddOperation{}
+    subtract    = SubtractOperation{}
+    divide      = DivideOperation{}
+    modulo      = ModuloOperation{}
+    multiply    = MultiplyOperation{}
+    negate      = NegationOperation{}
+    or          = OrOperation{}
+    not         = NotOperation{}
+    and         = AndOperation{}
+    compound    = CompoundReducer{}
+    statement   = StatementReducer{}
+    assignment  = AssignmentReducer{}
+    expression  = ExpressionReducer{}
+    primitive   = PrimitiveReducer{}
+    noop        = NoOp{}
+    variable    = VariableOperation{}
 )
 
+func initialize(op common.Operation) {
+    add.Operation = op
+    subtract.Operation = op
+    divide.Operation = op
+    modulo.Operation = op
+    multiply.Operation = op
+    negate.Operation = op
+    or.Operation = op
+    not.Operation = op
+    and.Operation= op
+    assignment.Operation = op
+    expression.Operation = op
+    compound.Operation = op
+    statement.Operation = op
+    variable.Operation = op
+}
 
+func resolve(
+        nodeType ir.IntermediateNodeType,
+) common.Operation {
+    
+    
+    switch nodeType {
+    case ir.SCOPE:
+        return compound
+    case ir.ASSIGN:
+        return assignment
+    case ir.EXPRESSION:
+        return expression
+    case ir.INTEGER, ir.FLOAT:
+        return primitive 
+    case ir.ADD:
+        return add 
+    case ir.NEGATE:
+        return negate 
+    case ir.MULTIPLY:
+        return multiply 
+    case ir.DIVIDE, ir.FLOAT_DIVIDE, ir.INTEGER_DIVIDE:
+        return divide 
+    case ir.VARIABLE:
+        return variable 
+    case ir.NO_OP:
+        return noop
+    case ir.SUBTRACT:
+        return subtract
+    case ir.MODULO:
+        return modulo
+    }
+    panic(fmt.Sprintf("No reducer %s", nodeType))
+    
+}
 
 type Reducer struct {
     common.Backend
@@ -29,6 +95,8 @@ type Reducer struct {
     InstructionCount    uint 
 }
 
+
+
 func (r *Reducer) GetSymbolTables() ir.SymbolTableStack {
     return r.symbolTables
 }
@@ -42,29 +110,7 @@ func (r *Reducer) ResolveFor(
     parent common.Operation,
     nodeType ir.IntermediateNodeType,
 ) common.Operation {
-    
-    switch nodeType {
-    case ir.SCOPE:
-        return CompoundReducer{parent}
-    case ir.ASSIGN:
-        return AssignmentReducer{parent}
-    case ir.EXPRESSION:
-        return ExpressionReducer{parent}
-    case ir.INTEGER:
-        return PrimitiveReducer{}
-    case ir.ADD:
-        return AddOperation{parent}
-    case ir.NEGATE:
-        return NegationOperation{parent}
-
-    case ir.MULTIPLY:
-        return MultiplyOperation{}
-    case ir.DIVIDE:
-        return DivideOperation{parent}
-    case ir.VARIABLE:
-        return VariableOperation{parent}
-    }
-    panic(fmt.Sprintf("No reducer %s", nodeType))
+    return resolve(nodeType)
 }
 
 
@@ -72,28 +118,7 @@ func (r *Reducer) Resolve(
     parent common.Operation,
     node ir.IntermediateNode,
 ) common.Operation {
-   
-    switch node.GetType() {
-    case ir.SCOPE:
-        return CompoundReducer{parent}
-    case ir.ASSIGN:
-        return AssignmentReducer{parent}
-    case ir.EXPRESSION:
-        return ExpressionReducer{parent}
-    case ir.INTEGER:
-        return PrimitiveReducer{}
-    case ir.NEGATE:
-        return NegationOperation{parent}
-    case ir.MULTIPLY:
-        return MultiplyOperation{}
-    case ir.ADD:
-        return AddOperation{parent}
-    case ir.DIVIDE:
-        return DivideOperation{parent}
-    case ir.VARIABLE:
-        return VariableOperation{parent}
-    }
-    panic(fmt.Sprintf("No reducer %s", node.GetType()))
+    return resolve(node.GetType())
 }
 
 
@@ -115,6 +140,7 @@ func (r *Reducer) Process(
     statementReducer := StatementReducer{
         ErrorHandler: r.ErrorHandler,
     }
+    initialize(&statement)
     
     root := model.GetRoot()
     if root != nil {

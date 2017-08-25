@@ -173,7 +173,7 @@ func (p*PascalNumberToken) computeIntegralValue(i string) int64  {
         previous int64 = -1 
         index = 0
     )
-   
+    
     for {
         
         if index >= len(i) || value < previous {

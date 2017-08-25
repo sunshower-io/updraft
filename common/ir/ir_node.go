@@ -35,6 +35,7 @@ const (
     NOT_EQUAL_TO        IntermediateNodeType = 21
     LESS_THAN           IntermediateNodeType = 22
     GREATER_THAN        IntermediateNodeType = 23
+    MODULO              IntermediateNodeType = 24 
 )
 
 
@@ -57,6 +58,8 @@ func init() {
     RegisterIntermediateType(MULTIPLY, "*")
     RegisterIntermediateType(FLOAT_DIVIDE, "/")
     RegisterIntermediateType(INTEGER_DIVIDE, "/")
+    RegisterIntermediateType(DIVIDE, "/")
+    RegisterIntermediateType(MODULO, "modulo")
     RegisterIntermediateType(NEGATE, "negate")
 }
 

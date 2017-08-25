@@ -23,10 +23,19 @@ func (o AddOperation) Apply(
     lhs := reducer.Apply(lhsNode, ctx)
     rhs := reducer.Apply(rhsNode, ctx)
     
-   
-    if isFloat(lhs) || isFloat(rhs) {
+    
+    lhsfloat := isFloat(lhs)
+    rhsfloat := isFloat(rhs)
+    
+    
+    if lhsfloat && rhsfloat {
         return lhs.(float64) + rhs.(float64)
+    } else if lhsfloat {
+        return lhs.(float64) + float64(rhs.(int64))
+    } else if rhsfloat {
+        return float64(lhs.(int64)) + rhs.(float64)
     }
+    
     
     return lhs.(int64) + rhs.(int64)
 }

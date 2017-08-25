@@ -60,9 +60,11 @@ func (s *StatementParser) ParseList(
         err error
         tokenType core.TokenType 
     )
+
+
     for  {
-        
-        
+    
+    
         if terminate(token, terminator) {
             return err
         }
@@ -89,10 +91,15 @@ func (s *StatementParser) ParseList(
                 s,
                 tokens.MISSING_SEMICOLON,
             )
+
+        default:
+            errorCode = tokens.UNEXPECTED_TOKEN
+            goto DONE
         }
         
     }
-    
+
+DONE:
     if tokenType == terminator {
         token, err = s.NextToken()
     } else {
