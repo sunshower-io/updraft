@@ -4,12 +4,12 @@ import (
 	"testing"
 	"strings"
 	"github.com/sunshower-io/updraft/common/observer"
-	"github.com/magiconair/properties/assert"
     "github.com/sunshower-io/updraft/front/parser"
     "github.com/sunshower-io/updraft/pascal/common"
     ccommon "github.com/sunshower-io/updraft/common"
     "github.com/sunshower-io/updraft/common/core"
     "github.com/sunshower-io/updraft/common/ir"
+    "github.com/stretchr/testify/assert"
 )
 
 const HELLO = `PROGRAM hello (output);
@@ -436,6 +436,37 @@ func (s *countingListener) OnMessage(m observer.Message) {
 	s.count++
 }
 
+func expectValue(
+        t *testing.T,
+        prg, 
+        id string, 
+        value interface{},
+) {
+    
+    model := compile(prg)
+    st := model.GetSymbolTables().Peek()
+    v, err := st.Lookup(id)
+    assert.Nil(t, err)
+    
+    switch value.(type) {
+    case int:
+        assert.Equal(
+            t, 
+            int64(value.(int)), 
+            v.GetAttribute(ir.DATA_VALUE).(int64),
+        )
+    case float32, float64:
+    
+        assert.Equal(
+            t,
+            value.(float64),
+            v.GetAttribute(ir.DATA_VALUE).(float64),
+        )
+    }
+
+
+    
+}
 
 
 func printTree(prg string) ir.ExecutionModel {

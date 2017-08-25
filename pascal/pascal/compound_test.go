@@ -6,6 +6,19 @@ import (
     "github.com/magiconair/properties/assert"
 )
 
+
+func TestSimpleExpressionHasCorrectOperatorPrecedence(t *testing.T) {
+    
+    prg := `
+    BEGIN
+        a := 2 * 3 + 1;
+    END.
+    `
+    expectValue(t, prg, "a", 7)
+    
+}
+
+
 func TestSimpleAdditionWithVariableWorks(t *testing.T) {
     prg := `
     BEGIN
@@ -14,16 +27,10 @@ func TestSimpleAdditionWithVariableWorks(t *testing.T) {
         c := a * b + a;
     END.
     `
-    printTree(prg)
-    //model := compile(prg)
-    //st := model.GetSymbolTables().Peek()
-    //symbol, _ := st.Lookup("b")
-    //assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(8))
-    //symbol, _ = st.Lookup("a")
-    //assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(2))
-    //
-    //symbol, _ = st.Lookup("c")
-    //assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(18))
+    
+    expectValue(t, prg, "a", 2)
+    expectValue(t, prg, "b", 8)
+    expectValue(t, prg, "c", 18)
 }
 
 func TestNegationOfSimpleIntegerWorks(t *testing.T) {

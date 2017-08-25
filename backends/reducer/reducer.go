@@ -53,14 +53,14 @@ func (r *Reducer) ResolveFor(
     case ir.INTEGER:
         return PrimitiveReducer{}
     case ir.ADD:
-        return &AddOperation{parent}
+        return AddOperation{parent}
     case ir.NEGATE:
         return NegationOperation{parent}
 
     case ir.MULTIPLY:
-        return &AddOperation{parent}
+        return MultiplyOperation{}
     case ir.DIVIDE:
-        return &AddOperation{parent}
+        return DivideOperation{parent}
     case ir.VARIABLE:
         return VariableOperation{parent}
     }
@@ -84,14 +84,12 @@ func (r *Reducer) Resolve(
         return PrimitiveReducer{}
     case ir.NEGATE:
         return NegationOperation{parent}
-
     case ir.MULTIPLY:
-        return &AddOperation{parent}
-
+        return MultiplyOperation{}
     case ir.ADD:
-        return &AddOperation{parent}
+        return AddOperation{parent}
     case ir.DIVIDE:
-        return &AddOperation{parent}
+        return DivideOperation{parent}
     case ir.VARIABLE:
         return VariableOperation{parent}
     }
