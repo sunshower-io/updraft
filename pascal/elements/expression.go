@@ -55,6 +55,7 @@ func (p *ExpressionParser) parseFactor(
         }
         
         rootNode = p.ExecutionModelFactory.NewNode(ir.VARIABLE, token)
+        rootNode.SetValue(name)
         rootNode.SetAttribute(ir.ID, name)
         entry.AddLine(&ir.Line{
             Number:token.GetLineNumber(),

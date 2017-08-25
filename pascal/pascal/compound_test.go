@@ -6,6 +6,26 @@ import (
     "github.com/magiconair/properties/assert"
 )
 
+func TestSimpleAdditionWithVariableWorks(t *testing.T) {
+    prg := `
+    BEGIN
+        a := 2;
+        b := (a + a) * a;
+        c := a * b + a;
+    END.
+    `
+    printTree(prg)
+    //model := compile(prg)
+    //st := model.GetSymbolTables().Peek()
+    //symbol, _ := st.Lookup("b")
+    //assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(8))
+    //symbol, _ = st.Lookup("a")
+    //assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(2))
+    //
+    //symbol, _ = st.Lookup("c")
+    //assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(18))
+}
+
 func TestNegationOfSimpleIntegerWorks(t *testing.T) {
     
     prg := `
@@ -68,7 +88,6 @@ func TestNestedEmptyNestedCompoundStatementsWorks(t *testing.T) {
 
 
 func TestNestedAssignmentsWithAllProductionsInAllPositions(t *testing.T) {
-    t.Skip()
     prg := `
     
     

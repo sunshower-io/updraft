@@ -8,6 +8,8 @@ type OperationContext interface {
     
     IncrementOperations()
     
+    GetSymbolTables() ir.SymbolTableStack
+    
     ResolveFor(
             Operation, 
             ir.IntermediateNodeType,

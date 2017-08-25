@@ -29,6 +29,10 @@ type Reducer struct {
     InstructionCount    uint 
 }
 
+func (r *Reducer) GetSymbolTables() ir.SymbolTableStack {
+    return r.symbolTables
+}
+
 
 func (r *Reducer) IncrementOperations() {
     r.ErrorCount++
@@ -55,9 +59,10 @@ func (r *Reducer) ResolveFor(
 
     case ir.MULTIPLY:
         return &AddOperation{parent}
-
     case ir.DIVIDE:
         return &AddOperation{parent}
+    case ir.VARIABLE:
+        return VariableOperation{parent}
     }
     panic(fmt.Sprintf("No reducer %s", nodeType))
 }
@@ -87,6 +92,8 @@ func (r *Reducer) Resolve(
         return &AddOperation{parent}
     case ir.DIVIDE:
         return &AddOperation{parent}
+    case ir.VARIABLE:
+        return VariableOperation{parent}
     }
     panic(fmt.Sprintf("No reducer %s", node.GetType()))
 }
