@@ -254,7 +254,7 @@ func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
     model := compile(prg)
     st := model.GetSymbolTables().Peek()
     symbol, _ := st.Lookup("a")
-    assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(-6))
+    assert.Equal(t, symbol.GetAttribute(ir.DATA_VALUE), int64(-9))
     
 }
 
