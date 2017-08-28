@@ -58,8 +58,17 @@ type OrOperation struct {
     BooleanOperation
 }
 
-
-func (o OrOperation) op(lhs, rhs bool) bool {
+func (o OrOperation) Apply(
+        node ir.IntermediateNode,
+        ctx common.OperationContext,
+) interface{} {
+    reducer := o.Operation
+    lhsNode := node.Get(0)
+    rhsNode := node.Get(1)
+    
+    lhs := reducer.Apply(lhsNode, ctx).(bool)
+    rhs := reducer.Apply(rhsNode, ctx).(bool)
+    
     return lhs || rhs
 }
 

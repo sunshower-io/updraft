@@ -6,8 +6,25 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/sunshower-io/updraft/front/parser"
 	"github.com/sunshower-io/updraft/common/observer"
+    "github.com/sunshower-io/updraft/middle/core"
 )
 
+func TestBooleanTokenIsExtractedCorrectly(t *testing.T) {
+    token := extractToken(t, "true")
+    assert.Equal(t, token.GetType(), core.BOOLEAN_TOKEN)
+}
+
+func TestIntegerTokenIsExtractedCorrectly(t *testing.T) {
+    token := extractNumber(t, "1000")
+    assert.Equal(t, token.GetType(), INTEGER)
+}
+
+func TestFloatNumberIsExtractedCorrectly(t *testing.T) {
+    //TODO fix
+    token := extractNumber(t, "1.01")
+    assert.Equal(t, token.GetType(), REAL)
+    assert.Equal(t, token.GetValue(), 101.01)
+}
 
 func TestPascalTokenExtractsPlusSymbolCorrectly(t *testing.T) {
     
@@ -73,4 +90,26 @@ func TestConsumingIntWorks(t *testing.T) {
 	r, e := NewPascalNumber(source)
 	assert.NoError(t, e)
 	assert.Equal(t, r.GetValue(), int64(0))
+}
+
+
+func extractToken(t *testing.T, tok string) core.Token {
+    
+    source := parser.NewSource(
+        strings.NewReader(tok),
+        observer.NewEventProducer(),
+    )
+    
+    token, _ := NewPascalToken(IDENTIFIER, source)
+    return token
+}
+
+func extractNumber(t *testing.T, tok string) core.Token {
+    source := parser.NewSource(
+        strings.NewReader(tok),
+        observer.NewEventProducer(),
+    )
+    
+    token, _ := NewPascalNumber(source)
+    return token
 }

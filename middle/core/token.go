@@ -33,9 +33,12 @@ func SymbolTokenType(
 	return result
 }
 
+
+
 func ReservedWord(
 	name string,
-	set map[string]TokenType) TokenType {
+	set map[string]TokenType,
+) TokenType {
 	return SymbolTokenType(name, name, set)
 }
 
@@ -47,7 +50,8 @@ func NewTokenType(name, value string) TokenType {
 }
 
 var (
-	ERROR_TOKEN = NewTokenType("ERROR", "error")
+	ERROR_TOKEN     = NewTokenType("ERROR", "error")
+    BOOLEAN_TOKEN   = NewTokenType("BOOLEAN", "boolean")
 )
 
 func NewTokenMessage(t Token) *TokenMessage {
@@ -201,6 +205,8 @@ func CreateToken(
 	}
 	return result
 }
+
+
 
 func NewToken(s io.Source, t TokenType) Token {
 	result := &BaseToken{

@@ -11,6 +11,8 @@ import (
 
 var (
 	RESERVED_WORDS map[string]core.TokenType = make(map[string]core.TokenType)
+    
+    
 
 	AND       = core.ReservedWord("AND", RESERVED_WORDS)
 	ARRAY     = core.ReservedWord("ARRAY", RESERVED_WORDS)
@@ -146,8 +148,11 @@ func NewPascalToken(t core.TokenType, s io.Source) (core.Token, error) {
 	pt := &PascalToken{
 		BaseToken: core.NewToken(s, t).(*core.BaseToken),
 	}
-	pt.Extract()
-	return pt, nil
+	er := pt.Extract()
+   
+    pt = reservedConstant(pt)
+    
+	return pt, er 
 }
 
 
@@ -156,8 +161,6 @@ func NewError(
 		code tokens.ErrorCode,
 		value string,
 ) core.Token {
-	
-	
 	
 	return &ErrorToken {
 		Code		: code,
@@ -168,4 +171,21 @@ func NewError(
 			value,
 		).(*core.BaseToken),
 	}
+}
+
+
+
+func reservedConstant(t *PascalToken) *PascalToken {
+    
+    text := t.Text
+    
+    if text != "" {
+        text = strings.ToLower(text)
+        if text == "true" || text == "false" {
+            t.Type = core.BOOLEAN_TOKEN
+            t.Value = text == "true"
+        }
+    }
+    
+    return t
 }

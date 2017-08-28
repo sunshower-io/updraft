@@ -59,7 +59,7 @@ func resolve(
         return assignment
     case ir.EXPRESSION:
         return expression
-    case ir.INTEGER, ir.FLOAT:
+    case ir.INTEGER, ir.FLOAT, ir.BOOLEAN:
         return primitive 
     case ir.ADD:
         return add 
@@ -77,6 +77,8 @@ func resolve(
         return subtract
     case ir.MODULO:
         return modulo
+    case ir.OR:
+        return or
     }
     panic(fmt.Sprintf("No reducer %s", nodeType))
     

@@ -61,7 +61,10 @@ func (p *ExpressionParser) parseFactor(
             Number:token.GetLineNumber(),
         })
         token, _ = p.NextToken()
-        
+    case core.BOOLEAN_TOKEN:
+        rootNode = p.ExecutionModelFactory.NewNode(ir.BOOLEAN, token)
+        rootNode.SetValue(token.GetValue())
+        token, _ = p.NextToken()
     case tokens.INTEGER:
         rootNode = p.ExecutionModelFactory.NewNode(ir.INTEGER, token)
         rootNode.SetValue(token.GetValue())

@@ -2,6 +2,36 @@ package pascal
 
 import "testing"
 
+
+func TestBooleanLiteralWorks(t *testing.T) {
+    prg := `
+    BEGIN
+        a := false;
+    END.
+    `
+    expectValue(t, prg, "a", false)
+}
+
+func TestBooleanLiteralTrueValueWorks(t *testing.T) {
+    prg := `
+    BEGIN
+        a := true;
+    END.
+    `
+    expectValue(t, prg, "a", true)
+}
+
+
+func TestBooleanOrWorks(t *testing.T) {
+    prg := `
+    BEGIN
+        a := true OR false;
+    END.
+    `
+    expectValue(t, prg, "a", true)
+    
+}
+
 func TestAdditionExpressionWorks(t *testing.T) {
     prg := `
     BEGIN
@@ -21,6 +51,8 @@ func TestSubtractionExpressionWorks(t *testing.T) {
     `
     expectValue(t, prg, "c", 0)
 }
+
+
 
 
 

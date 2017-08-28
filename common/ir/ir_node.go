@@ -35,7 +35,8 @@ const (
     NOT_EQUAL_TO        IntermediateNodeType = 21
     LESS_THAN           IntermediateNodeType = 22
     GREATER_THAN        IntermediateNodeType = 23
-    MODULO              IntermediateNodeType = 24 
+    MODULO              IntermediateNodeType = 24
+    BOOLEAN             IntermediateNodeType = 25
 )
 
 

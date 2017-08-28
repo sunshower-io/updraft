@@ -241,6 +241,7 @@ func TestReadingInvalidTokensProducesErrors(t *testing.T) {
 }
 
 
+
 func TestReadingAdditiveAssignmentWithConstantsWorks(t *testing.T) {
     
     
@@ -449,7 +450,7 @@ func expectValue(
     assert.Nil(t, err)
     
     switch value.(type) {
-    case int:
+    case int, int64:
         assert.Equal(
             t, 
             int64(value.(int)), 
@@ -462,7 +463,10 @@ func expectValue(
             value.(float64),
             v.GetAttribute(ir.DATA_VALUE).(float64),
         )
+    default:
+        assert.Equal(t, value, v.GetAttribute(ir.DATA_VALUE))
     }
+    
 
 
     
