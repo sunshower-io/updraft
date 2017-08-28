@@ -21,6 +21,7 @@ var (
     or          = OrOperation{}
     not         = NotOperation{}
     and         = AndOperation{}
+    xor         = XorOperation{}
     compound    = CompoundReducer{}
     statement   = StatementReducer{}
     assignment  = AssignmentReducer{}
@@ -31,20 +32,21 @@ var (
 )
 
 func initialize(op common.Operation) {
-    add.Operation = op
-    subtract.Operation = op
-    divide.Operation = op
-    modulo.Operation = op
-    multiply.Operation = op
-    negate.Operation = op
-    or.Operation = op
-    not.Operation = op
-    and.Operation= op
-    assignment.Operation = op
-    expression.Operation = op
-    compound.Operation = op
-    statement.Operation = op
-    variable.Operation = op
+    add.Operation           = op
+    subtract.Operation      = op
+    divide.Operation        = op
+    modulo.Operation        = op
+    multiply.Operation      = op
+    negate.Operation        = op
+    or.Operation            = op
+    not.Operation           = op
+    and.Operation           = op
+    xor.Operation           = op
+    assignment.Operation    = op
+    expression.Operation    = op
+    compound.Operation      = op
+    statement.Operation     = op
+    variable.Operation      = op
 }
 
 func resolve(
@@ -79,6 +81,11 @@ func resolve(
         return modulo
     case ir.OR:
         return or
+    case ir.AND:
+        return and
+    case ir.NOT:
+        return not
+
     }
     panic(fmt.Sprintf("No reducer %s", nodeType))
     

@@ -29,7 +29,17 @@ func TestBooleanOrWorks(t *testing.T) {
     END.
     `
     expectValue(t, prg, "a", true)
+}
+
+func TestBooleanAndWorks(t *testing.T) {
+    prg := `
+    BEGIN
+        a := true AND false;
+    END.
     
+    `
+    
+    expectValue(t, prg, "a", false)
 }
 
 func TestAdditionExpressionWorks(t *testing.T) {

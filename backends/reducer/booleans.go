@@ -20,67 +20,65 @@ func (o NotOperation) Apply(
     return !expr
 }
 
-type BooleanOperation struct {
-    common.Operation
-}
-
-
-func (b BooleanOperation) op(bool, bool) bool {
-    return false
-}
-
-func (o BooleanOperation) Apply(
-        node ir.IntermediateNode,
-        ctx common.OperationContext,
-) interface{} {
-    reducer := o.Operation
-    lhsNode := node.Get(0)
-    rhsNode := node.Get(1)
-    
-    lhs := reducer.Apply(lhsNode, ctx).(bool)
-    rhs := reducer.Apply(rhsNode, ctx).(bool)
-    
-    return o.op(lhs, rhs)
-}
 
 
 
 type AndOperation struct {
-    BooleanOperation
+    common.Operation 
 }
 
-func (o AndOperation) op(lhs, rhs bool) bool {
+func (o AndOperation) Apply(
+        node ir.IntermediateNode,
+        ctx common.OperationContext,
+) interface{} {
+    lhs, rhs := apply(o.Operation, node, ctx)
     return lhs && rhs
 }
 
 
 type OrOperation struct {
-    BooleanOperation
+    common.Operation
 }
 
 func (o OrOperation) Apply(
         node ir.IntermediateNode,
         ctx common.OperationContext,
 ) interface{} {
-    reducer := o.Operation
+    lhs, rhs := apply(o.Operation, node, ctx)
+    return lhs || rhs
+}
+
+
+/**
+    Xor Operation:
+    Computes the logical exclusive-or of two boolean expressions
+ */
+type XorOperation struct {
+    common.Operation
+}
+
+
+func (o XorOperation) Apply(
+        node ir.IntermediateNode, 
+        ctx common.OperationContext,
+) interface{} {
+    lhs, rhs := apply(o.Operation, node, ctx)
+    return lhs != rhs
+}
+
+
+
+func apply(
+        reducer common.Operation, 
+        node ir.IntermediateNode,
+        ctx common.OperationContext,
+) (bool, bool) {
+    
     lhsNode := node.Get(0)
     rhsNode := node.Get(1)
     
     lhs := reducer.Apply(lhsNode, ctx).(bool)
     rhs := reducer.Apply(rhsNode, ctx).(bool)
-    
-    return lhs || rhs
+    return lhs, rhs
 }
-
-
-type XorOperation struct {
-    BooleanOperation
-}
-
-
-func (o XorOperation) op(lhs, rhs bool) bool {
-    return lhs != rhs
-}
-
-
 

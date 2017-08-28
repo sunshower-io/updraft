@@ -247,9 +247,10 @@ func getMultiplicativeTypes() OperationMap {
 
 func getAdditiveTypes() OperationMap {
     result := make(OperationMap)
-    result[tokens.PLUS] = ir.ADD
-    result[tokens.MINUS] = ir.SUBTRACT
-    result[tokens.OR] = ir.OR
+    result[tokens.PLUS]         = ir.ADD
+    result[tokens.MINUS]        = ir.SUBTRACT
+    result[tokens.OR]           = ir.OR
+    result[tokens.AND]          = ir.AND
     return result
 }
 

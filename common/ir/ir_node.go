@@ -37,6 +37,7 @@ const (
     GREATER_THAN        IntermediateNodeType = 23
     MODULO              IntermediateNodeType = 24
     BOOLEAN             IntermediateNodeType = 25
+    AND                 IntermediateNodeType = 26
 )
 
 
