@@ -43,6 +43,9 @@ const (
 
 func init() {
     RegisterIntermediateType(NO_OP, "no-op")
+    RegisterIntermediateType(OR, "or")
+    RegisterIntermediateType(AND, "and")
+    RegisterIntermediateType(BOOLEAN, "boolean")
     RegisterIntermediateType(ASSIGN, "assign")
     RegisterIntermediateType(VARIABLE, "var")
     RegisterIntermediateType(INTEGER, "int64")
@@ -51,6 +54,9 @@ func init() {
     RegisterIntermediateType(NOT, "not")
     RegisterIntermediateType(EXPRESSION, "expr")
     
+   
+    RegisterIntermediateType(NOT_EQUAL_TO, "!=")
+    RegisterIntermediateType(EQUAL_TO, "==")
     
     RegisterIntermediateType(SCOPE, "scope")
     RegisterIntermediateType(LOOP, "loop")

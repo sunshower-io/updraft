@@ -239,9 +239,10 @@ func (p *ExpressionParser) Parse(
 
 func getMultiplicativeTypes() OperationMap {
     result := make(OperationMap)
-    result[tokens.STAR] = ir.MULTIPLY
-    result[tokens.SLASH] = ir.DIVIDE
-    result[tokens.MOD] = ir.MODULO
+    result[tokens.STAR]             = ir.MULTIPLY
+    result[tokens.SLASH]            = ir.DIVIDE
+    result[tokens.MOD]              = ir.MODULO
+    result[tokens.AND]              = ir.AND
     return result
 }
 
@@ -250,7 +251,6 @@ func getAdditiveTypes() OperationMap {
     result[tokens.PLUS]         = ir.ADD
     result[tokens.MINUS]        = ir.SUBTRACT
     result[tokens.OR]           = ir.OR
-    result[tokens.AND]          = ir.AND
     return result
 }
 
@@ -258,11 +258,11 @@ func getAdditiveTypes() OperationMap {
 
 func relationalTypes() OperationMap {
     result := make(OperationMap)
-    result[tokens.EQUALS] = ir.EQUAL_TO
-    result[tokens.NOT_EQUALS] = ir.NOT_EQUAL_TO
-    result[tokens.LT] = ir.LESS_THAN
-    result[tokens.GT] = ir.GREATER_THAN
-    result[tokens.LTE] = ir.LTE
-    result[tokens.GTE] = ir.GTE
+    result[tokens.EQUALS]           = ir.EQUAL_TO
+    result[tokens.NOT_EQUALS]       = ir.NOT_EQUAL_TO
+    result[tokens.LT]               = ir.LESS_THAN
+    result[tokens.GT]               = ir.GREATER_THAN
+    result[tokens.LTE]              = ir.LTE
+    result[tokens.GTE]              = ir.GTE
     return result
 }

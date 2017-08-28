@@ -23,12 +23,14 @@ var (
     and         = AndOperation{}
     xor         = XorOperation{}
     compound    = CompoundReducer{}
+    eq          = EqualityReducer{}
     statement   = StatementReducer{}
     assignment  = AssignmentReducer{}
     expression  = ExpressionReducer{}
     primitive   = PrimitiveReducer{}
     noop        = NoOp{}
     variable    = VariableOperation{}
+    neq         = InequalityReducer{}
 )
 
 func initialize(op common.Operation) {
@@ -47,12 +49,13 @@ func initialize(op common.Operation) {
     compound.Operation      = op
     statement.Operation     = op
     variable.Operation      = op
+    eq.Operation            = op
+    neq.Operation           = op
 }
 
 func resolve(
         nodeType ir.IntermediateNodeType,
 ) common.Operation {
-    
     
     switch nodeType {
     case ir.SCOPE:
@@ -85,7 +88,10 @@ func resolve(
         return and
     case ir.NOT:
         return not
-
+    case ir.EQUAL_TO:
+        return eq
+    case ir.NOT_EQUAL_TO:
+        return neq
     }
     panic(fmt.Sprintf("No reducer %s", nodeType))
     
