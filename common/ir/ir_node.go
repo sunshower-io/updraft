@@ -29,7 +29,7 @@ const (
     
     GTE                 IntermediateNodeType = 16
     LTE                 IntermediateNodeType = 17
-    LOOP                IntermediateNodeType = 18
+    ITERATE             IntermediateNodeType = 18
     TEST                IntermediateNodeType = 19
     EQUAL_TO            IntermediateNodeType = 20
     NOT_EQUAL_TO        IntermediateNodeType = 21
@@ -59,7 +59,7 @@ func init() {
     RegisterIntermediateType(EQUAL_TO, "==")
     
     RegisterIntermediateType(SCOPE, "scope")
-    RegisterIntermediateType(LOOP, "loop")
+    RegisterIntermediateType(ITERATE, "iterate")
     RegisterIntermediateType(TEST, "test")
     RegisterIntermediateType(ADD, "+")
     RegisterIntermediateType(SUBTRACT, "-")

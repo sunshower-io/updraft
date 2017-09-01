@@ -27,12 +27,13 @@ func TestOperatorPrecedenceIsCorrectForEqualityAndInequality(t *testing.T) {
     prg := `
     
     BEGIN
-        b := 1;
-        a := (1 <> 1) or (b = 1);
+        a :=  (1 = 1) or true;
     END.
     `
     
-    expectValue(t, prg, "a", true)
+    //expectValue(t, prg, "a", true)
+    
+    printTree(prg)
 }
 
 func TestBooleanOperatorPrecedenceIsHigherThanRelational(t *testing.T) {

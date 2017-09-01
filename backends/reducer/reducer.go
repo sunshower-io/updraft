@@ -31,6 +31,7 @@ var (
     noop        = NoOp{}
     variable    = VariableOperation{}
     neq         = InequalityReducer{}
+    iterate     = IterationReducer{}
 )
 
 func initialize(op common.Operation) {
@@ -92,6 +93,10 @@ func resolve(
         return eq
     case ir.NOT_EQUAL_TO:
         return neq
+    case ir.ITERATE:
+        return iterate
+    case ir.STRING_LITERAL:
+        return primitive
     }
     panic(fmt.Sprintf("No reducer %s", nodeType))
     

@@ -11,6 +11,18 @@ import (
     "github.com/sunshower-io/updraft/common"
 )
 
+var statementSynchronizationSet = core.NewSynchronizationSet(
+    tokens.BEGIN,
+    tokens.CASE,
+    tokens.FOR,
+    tokens.IF,
+    tokens.REPEAT,
+    tokens.WHILE,
+    tokens.IDENTIFIER,
+    tokens.SEMICOLON,
+) 
+
+
 func NewStatementParser(
         parser frontend.Parser,
 ) *StatementParser {
@@ -58,6 +70,7 @@ func (s *StatementParser) ParseList(
     
     var (
         err error
+        terminated bool
         tokenType core.TokenType 
     )
 
@@ -65,8 +78,8 @@ func (s *StatementParser) ParseList(
     for  {
     
     
-        if terminate(token, terminator) {
-            return err
+        if tokenType, terminated = terminate(token, terminator); terminated {
+            break
         }
        
         if token, err = s.CurrentToken(); err != nil {
@@ -131,6 +144,22 @@ func (s *StatementParser) Parse(
     case tokens.IDENTIFIER: 
         assignmentStatmentParser := NewAssignmentParser(s)
         executionModel, err = assignmentStatmentParser.Parse(token)
+    case tokens.REPEAT:
+        repeatParser := NewRepeatParser(s)
+        executionModel, err = repeatParser.Parse(token)
+
+    //case tokens.WHILE: 
+    //    whileParser := NewWhileParser(s)
+    //    executionModel, er = whileParser.Parse(token)
+    //case tokens.FOR:
+    //    forParser := NewForParser(s)
+    //    executionModel, err = forParser.Parse(token)
+    //case tokens.IF: 
+    //    ifParser := NewIfParser(s)
+    //    executionModel, err = ifParser.Parse(token)
+    //case tokens.CASE:
+    //    caseParser := NewCaseParser(s) 
+    //    executionModel, err = caseParser.Parse(token)
     default: 
         executionModel = s.ExecutionModelFactory.NewNode(ir.NO_OP, token)
     }
@@ -143,18 +172,18 @@ func (s *StatementParser) Parse(
 func terminate(
         token core.Token,
         terminatorType core.TokenType,
-) bool {
+) (core.TokenType, bool) {
     
     if token.GetType() == terminatorType {
-        return true
+        return terminatorType, true
     }
     
     switch token.(type) {
     
     case *core.EofToken:
-        return true
+        return token.GetType(), true
     }
     
-    return false
+    return terminatorType, false
 }
 

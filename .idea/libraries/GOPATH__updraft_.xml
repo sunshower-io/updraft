@@ -1,21 +1,21 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;updraft&gt;">
     <CLASSES>
+      <root url="file://$GOPATH$/src/github.com" />
       <root url="file://$GOPATH$/src/cloud.google.com" />
       <root url="file://$GOPATH$/src/zombiezen.com" />
       <root url="file://$GOPATH$/src/google.golang.org" />
       <root url="file://$GOPATH$/src/gopkg.in" />
-      <root url="file://$GOPATH$/src/github.com" />
       <root url="file://$GOPATH$/src/gitlab.com" />
       <root url="file://$GOPATH$/src/golang.org" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="file://$GOPATH$/src/github.com" />
       <root url="file://$GOPATH$/src/cloud.google.com" />
       <root url="file://$GOPATH$/src/zombiezen.com" />
       <root url="file://$GOPATH$/src/google.golang.org" />
       <root url="file://$GOPATH$/src/gopkg.in" />
-      <root url="file://$GOPATH$/src/github.com" />
       <root url="file://$GOPATH$/src/gitlab.com" />
       <root url="file://$GOPATH$/src/golang.org" />
     </SOURCES>

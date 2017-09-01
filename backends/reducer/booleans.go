@@ -77,8 +77,8 @@ func apply(
     lhsNode := node.Get(0)
     rhsNode := node.Get(1)
     
-    lhs := reducer.Apply(lhsNode, ctx).(bool)
-    rhs := reducer.Apply(rhsNode, ctx).(bool)
-    return lhs, rhs
+    lhs := reducer.Apply(lhsNode, ctx)
+    rhs := reducer.Apply(rhsNode, ctx)
+    return lhs.(bool), rhs.(bool)
 }
 

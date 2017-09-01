@@ -35,6 +35,35 @@ func (p *RecursiveDescentPascalParser) GetExecutionModelFactory() ir.ExecutionMo
     return p.executionModelFactory
 }
 
+func (p *RecursiveDescentPascalParser) Synchronize(
+        set core.TokenSet,
+) (core.Token, error)  {
+    token := p.GetCurrentToken()
+    
+    if !set.Contains(token) {
+        p.errorHandler.FlagError(
+            common.PARSING, 
+            token, 
+            p, 
+            tokens.UNEXPECTED_TOKEN,
+        )
+    }
+   
+    for {
+        token = p.GetNextToken()
+        
+        switch token.(type) {
+        case *core.EofToken:
+            return token, nil
+        }
+        
+        if !set.Contains(token) {
+            return token, nil
+        }
+        
+    }
+}
+
 func (p *RecursiveDescentPascalParser) Parse() ccore.CompilationResult {
     
     startTime := time.Now()
@@ -61,16 +90,6 @@ func (p *RecursiveDescentPascalParser) Parse() ccore.CompilationResult {
         statement := elements.NewStatementParser(p)
         root, _ = statement.Parse(token)
         executionModel.SetRoot(root)
-        //tname := strings.ToLower(token.GetText())
-        //
-        //symbol, er := p.symbolTables.Resolve(tname)
-        //if er != nil {
-        //	symbol, _ = p.symbolTables.EnterLocal(tname)
-        //}
-        //
-        //symbol.AddLine(&ir.Line{
-        //	Number: token.GetLineNumber(),
-        //})
     default:
         p.SendMessage(core.NewTokenMessage(token))
     }
@@ -95,6 +114,9 @@ func (p *RecursiveDescentPascalParser) Parse() ccore.CompilationResult {
     )
     
 }
+
+
+
 
 func (p *RecursiveDescentPascalParser) GetNextToken() core.Token {
     return p.Parser.GetNextToken()

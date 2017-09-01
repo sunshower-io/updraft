@@ -43,6 +43,8 @@ type Parser interface {
     
     Initialize()                        error
     
+    Synchronize(core.TokenSet)          (core.Token, error)
+    
     Parse()                             ccore.CompilationResult  
     
     
