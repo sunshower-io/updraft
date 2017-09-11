@@ -11,6 +11,10 @@ import (
     "github.com/sunshower-io/updraft/common"
 )
 
+
+
+var statementSynchronizationCache = make(map[core.TokenType] core.TokenSet)
+
 var statementSynchronizationSet = core.NewSynchronizationSet(
     tokens.BEGIN,
     tokens.CASE,
@@ -21,6 +25,15 @@ var statementSynchronizationSet = core.NewSynchronizationSet(
     tokens.IDENTIFIER,
     tokens.SEMICOLON,
 ) 
+
+
+var statementTerminatorSynchronizationSet = core.NewSynchronizationSet(
+    tokens.SEMICOLON,
+    tokens.END,
+    tokens.ELSE,
+    tokens.UNTIL,
+    tokens.DOT,
+)
 
 
 func NewStatementParser(
@@ -74,6 +87,8 @@ func (s *StatementParser) ParseList(
         tokenType core.TokenType 
     )
 
+    
+    terminators := createOrRetrieveCached(terminator)
 
     for  {
     
@@ -106,7 +121,13 @@ func (s *StatementParser) ParseList(
             )
 
         default:
-            errorCode = tokens.UNEXPECTED_TOKEN
+            if terminators.Contains(token) {
+                errorCode = tokens.MISSING_SEMICOLON 
+            } else {
+                errorCode = tokens.UNEXPECTED_TOKEN
+            }
+            
+            token, err = s.Parser.Synchronize(terminators)
             goto DONE
         }
         
@@ -183,7 +204,17 @@ func terminate(
     case *core.EofToken:
         return token.GetType(), true
     }
-    
     return terminatorType, false
 }
 
+
+
+
+func createOrRetrieveCached(terminator core.TokenType) core.TokenSet {
+    if tokenSet, ok := statementSynchronizationCache[terminator]; ok {
+        return tokenSet
+    }
+    terminatorSet := statementSynchronizationSet.CloneAndAppend(terminator)
+    statementSynchronizationCache[terminator] = terminatorSet 
+    return terminatorSet
+}

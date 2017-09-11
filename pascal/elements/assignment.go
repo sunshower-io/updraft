@@ -9,6 +9,14 @@ import (
 )
 
 
+
+var assignmentTerminators = 
+        statementSynchronizationSet.CloneAndAppendAll(
+            statementTerminatorSynchronizationSet,
+            tokens.COLON_EQUALS,
+        ) 
+
+
 func NewAssignmentParser (
         parent *StatementParser,
 ) *AssignmentStatementParser {
@@ -47,6 +55,9 @@ func (p *AssignmentStatementParser) Parse(
     variableNode.SetValue(target)
     
     assignment.AddChild(variableNode)
+    
+    
+    token, er = p.Parser.Synchronize(assignmentTerminators) 
     
     if token.GetType() == tokens.COLON_EQUALS {
         token, er = p.NextToken()

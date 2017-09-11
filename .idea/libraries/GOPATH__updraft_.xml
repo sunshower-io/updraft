@@ -21,6 +21,7 @@
     </SOURCES>
     <excluded>
       <root url="file://$PROJECT_DIR$" />
+      <root url="file://$GOPATH$/src/github.com/sunshower-io/anvil" />
     </excluded>
   </library>
 </component>

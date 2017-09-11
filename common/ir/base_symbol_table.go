@@ -3,8 +3,9 @@ package ir
 import (
 	"errors"
 	"fmt"
-	"github.com/sunshower-io/updraft/common/collections"
 	"strings"
+    "github.com/sunshower-io/anvil/collections"
+    "github.com/sunshower-io/anvil"
 )
 
 func stringComparator(a collections.Value, b collections.Value) int {
@@ -84,7 +85,7 @@ type BaseSymbolTable struct {
 	level int
 
 	factory SymbolTableFactory
-	values  *collections.TreeMap
+	values  collections.Map
 }
 
 func (t *BaseSymbolTable) Height() int {
@@ -107,8 +108,9 @@ func (t *BaseSymbolTable) Enter(key string) (Symbol, error) {
 
 func (t *BaseSymbolTable) Entries(bool) []Symbol {
 	entries := make([]Symbol, 0)
-	for iter := t.values.Iterator(); iter.HasNext(); iter = iter.Next() {
-		entries = append(entries, iter.NextValue().(Symbol))
+	for iter := t.values.Iterator(); iter.HasNext(); {
+        value, _ := iter.Next()
+		entries = append(entries, value.(collections.Entry).Value().(Symbol))
 	}
 	return entries
 }
@@ -130,7 +132,7 @@ func NewSymbolTable(factory SymbolTableFactory, level int) SymbolTable {
 	return &BaseSymbolTable{
 		level:   level,
 		factory: factory,
-		values:  collections.NewTreeMap(stringComparator),
+		values:  anvil.Maps().Sorted(anvil.Trees.RedBlack).OrderBy(stringComparator),
 	}
 }
 
